@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "react";
 import type { Metadata } from "next";
 import Providers from "@/Contexts/Providers";
+import "./globals.css";
 
 export const metadata: Metadata = {
    title: "Off-Campus",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
    return (
       <html lang="en">
-         <body>
+         <body className="min-h-screen">
             <Providers children={children} />
          </body>
       </html>
