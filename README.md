@@ -2,7 +2,8 @@
 
 # SCHEDULE
 
-1. landing page
+<!-- 1. landing page -->
+
 2. auth
 3. listings
 4. about and contact

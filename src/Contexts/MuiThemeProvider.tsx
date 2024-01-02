@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import theme from "./theme";
 
