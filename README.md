@@ -3,10 +3,10 @@
 # SCHEDULE
 
 <!-- 1. landing page -->
+<!-- 2. listings -->
 
-2. auth
-3. listings
-4. about and contact
-5. deploy static
-6. backend
-7. deploy production
+3. auth pages: signin, signup, logout, profile, edit-details, create-listing, update-listing
+4. deploy static
+5. backend
+6. deploy production
+7. about and contact

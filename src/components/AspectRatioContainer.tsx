@@ -1,37 +1,30 @@
 "use client";
 
-import React, {
-   useState,
-   useRef,
-   useEffect,
-   ReactNode,
-   RefObject,
-} from "react";
+import Image from "next/image";
+import React, { useState, useRef, useEffect, ReactNode } from "react";
 
 type propTypes = {
    children: ReactNode;
    ratio?: "16/9" | string;
 };
 
-export default function AspectRatioContainer({
-   children,
-   ratio = "16/9",
-}: propTypes) {
+export default function AspectRatioContainer({ children, ratio = "16/9" }: propTypes) {
    const [height, setHeight] = useState("fit-content");
-   const itemRef = useRef();
+   const itemRef = useRef<HTMLDivElement>(null);
 
    useEffect(() => {
       function handleResize() {
-         let numberRatio: number;
-         try {
-            numberRatio =
-               parseInt(ratio.split("/")[1]) / parseInt(ratio.split("/")[0]);
-         } catch (error) {
-            numberRatio = 9 / 16;
-         }
+         if (itemRef.current !== null) {
+            let numberRatio: number;
+            try {
+               numberRatio = parseInt(ratio.split("/")[1]) / parseInt(ratio.split("/")[0]);
+            } catch (error) {
+               numberRatio = 9 / 16;
+            }
 
-         const width = itemRef.current.clientWidth;
-         setHeight(`${width * numberRatio}px`);
+            const width = itemRef.current.clientWidth;
+            setHeight(`${width * numberRatio}px`);
+         }
       }
 
       handleResize();
@@ -44,5 +37,37 @@ export default function AspectRatioContainer({
       <div ref={itemRef} style={{ width: "100%", height: height }}>
          {children}
       </div>
+   );
+}
+
+export function AspectContainedImage({
+   ratio,
+   src,
+   alt,
+   style,
+}: {
+   ratio?: "string";
+   src: string;
+   alt: string;
+   style?: object;
+}) {
+   return (
+      <AspectRatioContainer ratio={ratio}>
+         <Image
+            priority
+            src={src}
+            quality={100}
+            height={90}
+            width={160}
+            alt={alt}
+            style={{
+               width: "100%",
+               height: "100%",
+               objectFit: "cover",
+               borderRadius: "15px 15px 0 0",
+               ...style,
+            }}
+         />
+      </AspectRatioContainer>
    );
 }

@@ -3,6 +3,7 @@ export interface ListerInterface {
    username: string;
    email: string;
    listerType: "agent" | "landlord";
+   contactDetails: string;
 }
 
 export interface ListingInterface {
@@ -29,4 +30,12 @@ export interface SimpleListingInterface {
    location: string;
    lister: ListerInterface;
    coverImage: string;
+}
+
+export interface CheckboxOrRadioFilterInterface {
+   name: string;
+   label: string;
+   inputType: "checkbox" | "radio";
+   options: { label: string; value: string }[];
+   default: string | null;
 }

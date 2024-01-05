@@ -1,7 +1,8 @@
 "use client";
 
 import { PropsWithChildren, useEffect, useState } from "react";
-import { Box, Container, useTheme } from "@mui/material";
+import { Box, Container, SxProps, useTheme } from "@mui/material";
+import { zIndices } from "@/constants";
 export default function AnimatedHeader({ children }: PropsWithChildren) {
    const [bodyScrolled, setBodyScrolled] = useState(false);
    const scrollBreakpoint = 15;
@@ -18,11 +19,13 @@ export default function AnimatedHeader({ children }: PropsWithChildren) {
       return () => window.removeEventListener("scroll", handleBodyScrolled);
    }, [scrollBreakpoint]);
 
-   const innerBoxstyles = {
+   const innerBoxstyles: SxProps = {
       py: 1.5,
       borderRadius: bodyScrolled ? "" : "10px",
       transition: "box-shadow 0.1s linear",
       background: theme.palette.secondary.light,
+      border: "solid thin",
+      borderColor: "divider",
       boxShadow: bodyScrolled ? theme.shadows[3] : "",
    };
 
@@ -34,7 +37,7 @@ export default function AnimatedHeader({ children }: PropsWithChildren) {
             mt: 2,
             position: "sticky",
             top: 0,
-            zIndex: 100,
+            zIndex: zIndices.header,
             px: bodyScrolled ? "0 !important" : "",
             background: "white",
          }}

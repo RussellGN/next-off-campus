@@ -15,11 +15,13 @@ export default function Hero() {
          justifyContent="center"
          gap={5}
          sx={{
-            minHeight: "60vh",
+            minHeight: "70vh",
             mt: 2.5,
             px: { xs: 1, sm: 4 },
             py: 6,
             backgroundColor: "secondary.light",
+            border: "solid thin",
+            borderColor: "divider",
             borderRadius: "10px",
             overflow: "hidden",
          }}
@@ -27,11 +29,9 @@ export default function Hero() {
          <Grid item xs={12} md="auto" sx={{ order: { xs: 2, md: 1 } }}>
             <Box sx={{ p: 1, textAlign: { xs: "center", md: "left" } }}>
                <Typography variant="h4">No Res? No Problem</Typography>
-               <Typography
-                  sx={{ maxWidth: "20rem", my: 2, mx: { xs: "auto", md: "0" } }}
-               >
-                  Browse through countless accomodation listings available
-                  exclusively to college students in Zimbabwe
+               <Typography sx={{ maxWidth: "20rem", my: 2, mx: { xs: "auto", md: "0" } }}>
+                  Browse through countless accomodation listings available exclusively to college
+                  students in Zimbabwe
                </Typography>
                <div>
                   <Button component={Link} href="/accomodation">
@@ -65,11 +65,7 @@ export default function Hero() {
                   }}
                >
                   {heroListings.map((listing, index) => (
-                     <HeroListingCard
-                        key={listing.id}
-                        index={index}
-                        listing={listing}
-                     />
+                     <HeroListingCard key={listing.id} index={index} listing={listing} />
                   ))}
                </Box>
             </Box>
@@ -78,13 +74,7 @@ export default function Hero() {
    );
 }
 
-function HeroListingCard({
-   listing,
-   index,
-}: {
-   listing: SimpleListingInterface;
-   index: number;
-}) {
+function HeroListingCard({ listing, index }: { listing: SimpleListingInterface; index: number }) {
    return (
       <Box
          sx={{
@@ -114,21 +104,11 @@ function HeroListingCard({
          </AspectRatioContainer>
 
          <Box sx={{ p: 1, pb: 0, textAlign: "center" }}>
-            <Typography
-               fontWeight="bold"
-               noWrap
-               variant="caption"
-               component="div"
-            >
+            <Typography fontWeight="bold" noWrap variant="caption" component="div">
                {capitalize(listing.title)}
             </Typography>
 
-            <Typography
-               noWrap
-               variant="caption"
-               component="div"
-               sx={{ my: 0.5 }}
-            >
+            <Typography noWrap variant="caption" component="div" sx={{ my: 0.5 }}>
                <PlaceOutlined fontSize="inherit" sx={{ mt: -0.3, mr: 0.3 }} />
                {listing.location}
             </Typography>
