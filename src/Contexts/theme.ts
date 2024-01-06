@@ -43,6 +43,11 @@ const theme = createTheme({
             },
          },
       },
+      MuiTextField: {
+         defaultProps: {
+            sx: { "& .MuiInputBase-root": { borderRadius: "20px" } },
+         },
+      },
    },
 });
 

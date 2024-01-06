@@ -23,7 +23,7 @@ export default function Navbar() {
                      </Box>
                   ))}
                   <li>
-                     <Button component={Link} href="/signup" sx={{ ml: 2 }}>
+                     <Button component={Link} href="/auth/signup" sx={{ ml: 2 }}>
                         Signup
                      </Button>
                   </li>

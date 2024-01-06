@@ -1,13 +1,7 @@
 "use client";
 
 import { ArrowUpward, KeyboardDoubleArrowRight } from "@mui/icons-material";
-import {
-   Box,
-   Container,
-   IconButton,
-   Link as MuiLink,
-   Typography,
-} from "@mui/material";
+import { Box, Container, IconButton, Link as MuiLink, Typography } from "@mui/material";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
@@ -15,13 +9,7 @@ export default function Footer() {
    const pathname = usePathname();
    let ommitFooter = false;
 
-   [
-      "signup",
-      "login",
-      "create-listing",
-      "edit-profile",
-      "edit-listing",
-   ].forEach((route) => {
+   ["signup", "login", "create-listing", "edit-profile", "edit-listing"].forEach((route) => {
       if (pathname.includes(route)) {
          ommitFooter = true;
       }
@@ -44,7 +32,7 @@ export default function Footer() {
                <MuiLink
                   underline="none"
                   component={Link}
-                  href="/user/login"
+                  href="/auth/login"
                   sx={{ "&:hover": { color: "primary.main" } }}
                >
                   <KeyboardDoubleArrowRight sx={{ mr: 0.4 }} />
@@ -82,11 +70,7 @@ export default function Footer() {
 						Web Solutions Harare
 					</MuiLink> */}
                </Typography>
-               <IconButton
-                  title="Back to top"
-                  size="small"
-                  onClick={() => window.scrollTo(0, 0)}
-               >
+               <IconButton title="Back to top" size="small" onClick={() => window.scrollTo(0, 0)}>
                   <ArrowUpward />
                </IconButton>
             </Box>
