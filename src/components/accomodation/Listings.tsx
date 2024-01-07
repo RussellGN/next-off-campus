@@ -3,7 +3,7 @@ import {
    MonetizationOn,
    Person,
    PlaceOutlined,
-   RouteOutlined,
+   DirectionsWalk,
 } from "@mui/icons-material";
 import { Box, Button, CircularProgress, Grid, Paper, Typography } from "@mui/material";
 import { listings } from "@/data/listings";
@@ -152,7 +152,7 @@ export async function Listing({ listing }: { listing: ListingInterface }) {
                         gap: 0.8,
                      }}
                   >
-                     <RouteOutlined fontSize="inherit" />
+                     <DirectionsWalk fontSize="inherit" />
                      {`${listing.distance}km to ${capitalize(listing.nearestTo)}`}
                   </Typography>
 

@@ -31,7 +31,7 @@ export default function AuthForm({
    return (
       <form
          onSubmit={handleSubmit}
-         className="flex flex-col justify-center items-center gap-6"
+         className="flex flex-col justify-center items-center gap-6 w-full"
          // key={title + "-form"}
       >
          <div className="w-full">

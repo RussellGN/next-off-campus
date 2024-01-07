@@ -17,10 +17,12 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <Providers>
                <FormsBackground>
                   <Paper
+                     component="main"
                      elevation={8}
                      sx={{
                         borderRadius: "15px",
                         p: 5,
+                        px: { xs: 3, sm: 5 },
                         width: "100%",
                         maxWidth: "25rem",
                         minHeight: "80vh",

@@ -57,7 +57,7 @@ export default function SearchAndSort({
                //       handleQuery(q);
                //    }
                // }}
-               onKeyUp={(e) => {
+               onKeyUp={(e: any) => {
                   if (e.which === 13) {
                      const q = e.target.value;
                      e.target.value = "";

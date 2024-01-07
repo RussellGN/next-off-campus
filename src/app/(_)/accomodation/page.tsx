@@ -29,7 +29,7 @@ export default function Page() {
    }
 
    return (
-      <Container component="main" sx={{ mt: { xs: 2, md: 5 } }}>
+      <Box sx={{ mt: { xs: 2, md: 5 } }}>
          <Grid container gap={1}>
             <Sidebar
                showSidebar={showSidebar}
@@ -47,6 +47,6 @@ export default function Page() {
                </Box>
             </Grid>
          </Grid>
-      </Container>
+      </Box>
    );
 }

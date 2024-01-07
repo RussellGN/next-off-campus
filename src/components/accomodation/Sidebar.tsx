@@ -43,6 +43,7 @@ export default function Sidebar({
 
    return (
       <Grid
+         component="aside"
          item
          xs={12}
          md={3}

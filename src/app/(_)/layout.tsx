@@ -4,6 +4,7 @@ import Providers from "@/Contexts/Providers";
 import "../globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { Container } from "@mui/material";
 
 export const metadata: Metadata = {
    title: "Off-Campus",
@@ -16,7 +17,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
          <body className="min-h-screen">
             <Providers>
                <Navbar />
-               {children}
+               <Container component="main">{children}</Container>
                <Footer />
             </Providers>
          </body>

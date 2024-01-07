@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Page() {
    return (
       <div
-         style={{ minHeight: "60vh" }}
+         style={{ minHeight: "65vh" }}
          className="flex text-center gap-2 items-center justify-center flex-col"
       >
          <Typography variant="h6">This route does not exist</Typography>

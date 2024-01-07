@@ -56,7 +56,7 @@ export default function Signup() {
          if (res.error) {
             setErrorMessage(res.error);
          } else {
-            console.log("new user created", res.message);
+            console.log("new lister created", res.message);
             setStep(2);
          }
          setSubmitting(false);
@@ -66,7 +66,7 @@ export default function Signup() {
             setErrorMessage(res.error);
             setSubmitting(false);
          } else {
-            console.log("user details set successfully", res.message);
+            console.log("lister details set successfully", res.message);
             router.push("/profile/" + 23146223);
          }
       } else throw Error(`signup step ${step} is not valid`);

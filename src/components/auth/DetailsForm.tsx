@@ -1,3 +1,4 @@
+import { ListerInterface } from "@/interfaces";
 import {
    Box,
    Button,
@@ -8,12 +9,19 @@ import {
    Typography,
 } from "@mui/material";
 
-export default function DetailsForm() {
+export default function DetailsForm({
+   editing = false,
+   lister,
+}: {
+   editing?: boolean;
+   lister?: ListerInterface;
+}) {
    return (
       <>
          <Typography variant="body2" textAlign="center">
-            Account creation was successful. Please enter these details - to be included in all your
-            listings.
+            {editing
+               ? "Details are included in all your listings."
+               : "Account creation was successful. Please enter these details - to be included in all your listings."}
          </Typography>
 
          <TextField
@@ -21,6 +29,7 @@ export default function DetailsForm() {
             label="Username"
             name="username"
             placeholder="e.g Example Estate Agents"
+            defaultValue={lister?.username}
             inputProps={{
                minLength: 2,
                maxLength: 30,
@@ -36,6 +45,7 @@ export default function DetailsForm() {
             label="Contact details"
             name="contact-details"
             placeholder="Phone, email, social media and any other means for clients to contact you."
+            defaultValue={lister?.contactDetails}
             inputProps={{
                minLength: 5,
                maxLength: 100,
@@ -44,7 +54,7 @@ export default function DetailsForm() {
             fullWidth
          />
 
-         <RadioGroup name="lister-type" defaultValue="agent">
+         <RadioGroup name="lister-type" defaultValue={lister?.listerType || "agent"}>
             <div className="flex gap-4 items-center justify-center">
                <FormControlLabel label="Agent" value="agent" control={<Radio size="small" />} />
                <FormControlLabel
