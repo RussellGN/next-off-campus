@@ -1,8 +1,7 @@
 "use client";
 
-import { Add, ContactPage, Edit, Email, Logout, Person } from "@mui/icons-material";
+import { Add, Edit, KeyboardDoubleArrowRight, Logout } from "@mui/icons-material";
 import {
-   Avatar,
    Box,
    Button,
    CircularProgress,
@@ -13,6 +12,7 @@ import {
    DialogTitle,
    Grid,
    IconButton,
+   Paper,
    Typography,
 } from "@mui/material";
 import Link from "next/link";
@@ -20,6 +20,7 @@ import { Suspense, useEffect, useState } from "react";
 import Listings from "@/components/accomodation/Listings";
 import { useRouter } from "next/navigation";
 import { getLister } from "@/lib/dataFetching";
+import ListerAvatarOrSignup from "@/components/layout/ListerAvatarOrSignup";
 
 export default function Page({ params: { id } }: { params: { id: number } }) {
    const [openLogoutDialog, setOpenLogoutDialog] = useState(false);
@@ -53,10 +54,9 @@ export default function Page({ params: { id } }: { params: { id: number } }) {
 
             <Grid container gap={3}>
                <Grid item xs={12} md={3}>
-                  <Box
+                  <Paper
                      sx={{
                         borderRadius: "15px",
-                        boxShadow: "1px 1px 4px gray",
                         position: { md: "sticky" },
                         p: 3,
                         top: "100px",
@@ -65,22 +65,13 @@ export default function Page({ params: { id } }: { params: { id: number } }) {
                   >
                      <Box
                         sx={{
-                           mb: 2,
+                           mb: 3,
                            display: "flex",
                            justifyContent: "space-between",
                            alignItems: "center",
                         }}
                      >
-                        <Avatar
-                           alt={lister.username}
-                           sx={{
-                              boxShadow: "1px 1px 4px black",
-                              color: "white",
-                           }}
-                        >
-                           {generateAvatarLetters(lister.username)}
-                        </Avatar>
-
+                        <ListerAvatarOrSignup />
                         <IconButton
                            title="Edit Details"
                            component={Link}
@@ -96,13 +87,14 @@ export default function Page({ params: { id } }: { params: { id: number } }) {
                         <Typography
                            sx={{
                               mb: 1,
-                              width: "100%",
+                              Width: "100%",
                               whiteSpace: "nowrap",
                               overflow: "hidden",
                               textOverflow: "ellipsis",
                            }}
                         >
-                           <Person fontSize="small" sx={{ mr: 0.8, mt: -0.2 }} />
+                           {/* <Person fontSize="small" sx={{ mr: 0.8, mt: -0.2 }} /> */}
+                           <KeyboardDoubleArrowRight fontSize="small" sx={{ mr: 0.8, mt: -0.2 }} />
                            {lister.username}
                         </Typography>
 
@@ -115,7 +107,8 @@ export default function Page({ params: { id } }: { params: { id: number } }) {
                               textOverflow: "ellipsis",
                            }}
                         >
-                           <Email fontSize="small" sx={{ mr: 0.8, mt: -0.2 }} />
+                           {/* <Email fontSize="small" sx={{ mr: 0.8, mt: -0.2 }} /> */}
+                           <KeyboardDoubleArrowRight fontSize="small" sx={{ mr: 0.8, mt: -0.2 }} />
                            {lister.email}
                         </Typography>
 
@@ -126,16 +119,17 @@ export default function Page({ params: { id } }: { params: { id: number } }) {
                               gap: 0.5,
                            }}
                         >
-                           <ContactPage fontSize="small" />
+                           {/* <ContactPage fontSize="small" /> */}
+                           <KeyboardDoubleArrowRight fontSize="small" />
                            <span>{lister.contactDetails}</span>
                         </Typography>
                      </Box>
-                  </Box>
+                  </Paper>
                </Grid>
 
                <Grid item xs={12} md>
                   <div>
-                     <Box
+                     <Paper
                         sx={{
                            display: "flex",
                            alignItems: "center",
@@ -143,7 +137,6 @@ export default function Page({ params: { id } }: { params: { id: number } }) {
                            mb: 3,
                            p: 3,
                            borderRadius: "15px",
-                           boxShadow: "1px 1px 4px grey",
                         }}
                      >
                         <Button
@@ -157,7 +150,7 @@ export default function Page({ params: { id } }: { params: { id: number } }) {
                         <IconButton title="Logout" onClick={showLogoutDialog} size="small">
                            <Logout />
                         </IconButton>
-                     </Box>
+                     </Paper>
 
                      <Box sx={{ p: 2, minHeight: "40vh" }}>
                         <Typography variant="h6" sx={{ mb: 3, textAlign: "center" }}>
@@ -217,21 +210,11 @@ function LogoutDialog({
             </DialogContentText>
          </DialogContent>
          <DialogActions sx={{ justifyContent: "center", pb: 3 }}>
-            <Button size="small" onClick={hideLogoutDialog}>
-               Cancel
-            </Button>
-            <Button size="small" onClick={confirmLogout} autoFocus>
+            <Button onClick={hideLogoutDialog}>Cancel</Button>
+            <Button variant="outlined" color="secondary" onClick={confirmLogout}>
                Yes
             </Button>
          </DialogActions>
       </Dialog>
    );
-}
-
-function generateAvatarLetters(string: string): string {
-   string = string.trim();
-   let words = string.split(" ");
-   let letters = words.map((word) => word[0]);
-
-   return letters.join("").toUpperCase();
 }

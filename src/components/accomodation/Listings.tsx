@@ -13,6 +13,8 @@ import { capitalize } from "@/lib/utils";
 import Link from "next/link";
 import { Suspense } from "react";
 import Pagination from "./Pagination";
+import ListerOptions from "./ListerOptions";
+import ViewCountOrLister from "./ViewCountOrLister";
 
 export default function Listings() {
    const pageCount = 3;
@@ -173,11 +175,15 @@ export async function Listing({ listing }: { listing: ListingInterface }) {
                         >
                            View
                         </Button>
+                        <ListerOptions listingtitle={listing.title} listingSlug={listing.slug} />
                      </span>
 
-                     <Typography variant="caption" color="primary">
-                        <Person fontSize="inherit" /> {listing.lister.username}
-                     </Typography>
+                     <span>
+                        <ViewCountOrLister
+                           views={listing.viewCount ? listing.viewCount : 210}
+                           username={listing.lister.username}
+                        />
+                     </span>
                   </Box>
                </Box>
             </Grid>

@@ -23,7 +23,7 @@ export default function RelatedListing({
             borderRadius: "8px",
             p: 1,
             mb: { xs: 1.5, sm: 2 },
-            backgroundColor: "white",
+            backgroundColor: "background.paper",
             width: width || "10rem",
             minWidth: "10rem",
             maxWidth: "15rem",

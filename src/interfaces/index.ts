@@ -20,6 +20,7 @@ export interface ListingInterface {
    date: string;
    lister: ListerInterface;
    images: string[];
+   viewCount?: number;
 }
 
 export interface SimpleListingInterface {

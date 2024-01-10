@@ -35,7 +35,12 @@ export default function AuthForm({
          // key={title + "-form"}
       >
          <div className="w-full">
-            <Button variant="outlined" startIcon={<HomeOutlined />} onClick={goHome}>
+            <Button
+               color="secondary"
+               variant="outlined"
+               startIcon={<HomeOutlined />}
+               onClick={goHome}
+            >
                Home
             </Button>
          </div>

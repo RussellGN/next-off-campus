@@ -23,7 +23,8 @@ export default function AnimatedHeader({ children }: PropsWithChildren) {
       py: 1.5,
       borderRadius: bodyScrolled ? "" : "10px",
       transition: "box-shadow 0.1s linear",
-      background: theme.palette.secondary.light,
+      // background: theme.palette.secondary.light,
+      background: theme.palette.background.paper,
       border: "solid thin",
       borderColor: "divider",
       boxShadow: bodyScrolled ? theme.shadows[3] : "",
@@ -39,7 +40,7 @@ export default function AnimatedHeader({ children }: PropsWithChildren) {
             top: 0,
             zIndex: zIndices.header,
             px: bodyScrolled ? "0 !important" : "",
-            background: "white",
+            // background: "white",
          }}
       >
          <Box sx={innerBoxstyles}>

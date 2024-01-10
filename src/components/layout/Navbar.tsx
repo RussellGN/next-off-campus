@@ -4,6 +4,8 @@ import Logo from "../Logo";
 import Link from "next/link";
 import MobileNavigation from "./MobileNavigation";
 import { navLinks } from "@/constants";
+import NavLink from "../NavLink";
+import ListerAvatarOrSignup from "./ListerAvatarOrSignup";
 
 export default function Navbar() {
    return (
@@ -19,13 +21,16 @@ export default function Navbar() {
                         key={navLink.path}
                         sx={{ display: { xs: "none", md: "inline-block" } }}
                      >
-                        <Link href={navLink.path}>{navLink.label}</Link>
+                        <NavLink
+                           href={navLink.path}
+                           includes={navLink.path === "/accomodation" ? navLink.path : undefined}
+                        >
+                           {navLink.label}
+                        </NavLink>
                      </Box>
                   ))}
                   <li>
-                     <Button component={Link} href="/auth/signup" sx={{ ml: 2 }}>
-                        Signup
-                     </Button>
+                     <ListerAvatarOrSignup avatarSx={{ ml: 2 }} signupSx={{ ml: 2 }} />
                   </li>
                   <MobileNavigation />
                </ul>

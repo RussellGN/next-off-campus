@@ -11,3 +11,14 @@ export function capitalize(text: string): string {
 
    return finalText.trim();
 }
+
+export function generateAvatarLetters(string: string): string {
+   string = string.trim();
+   let words = string.split(" ");
+   let letters = words.map((word) => word[0]);
+
+   const finalLetters = letters.join("").toUpperCase();
+
+   if (finalLetters.length > 1) return finalLetters.slice(0, 2);
+   else return finalLetters;
+}

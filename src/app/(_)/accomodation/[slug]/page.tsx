@@ -10,6 +10,10 @@ import {
    KeyboardArrowLeft,
    KeyboardArrowRight,
    ArrowBack,
+   Person,
+   PersonOutlined,
+   ContactMail,
+   ContactMailOutlined,
 } from "@mui/icons-material";
 import AspectRatioContainer, { AspectContainedImage } from "@/components/AspectRatioContainer";
 import { useState } from "react";
@@ -157,7 +161,9 @@ export default function Page({ params: { slug } }: { params: { slug: string } })
                         <Typography
                            sx={{
                               mb: 1.5,
-                              backgroundColor: "divider",
+                              border: "solid 1px",
+                              borderColor: "divider",
+                              backgroundColor: "background.paper",
                               p: 1.5,
                               borderRadius: "5px",
                            }}
@@ -168,20 +174,32 @@ export default function Page({ params: { slug } }: { params: { slug: string } })
                         <Box sx={{ display: "flex", alignItems: "flex-start", mb: 1.5, gap: 1 }}>
                            <Typography
                               sx={{
-                                 backgroundColor: "divider",
-                                 p: 1.5,
+                                 border: "solid 1px",
+                                 borderColor: "divider",
+                                 minWidth: "30%",
+                                 backgroundColor: "background.paper",
+                                 p: 1,
                                  borderRadius: "5px",
+                                 display: "flex",
+                                 gap: 0.8,
                               }}
                            >
+                              <PersonOutlined fontSize="small" />
                               {listing.lister.username}
                            </Typography>
+
                            <Typography
                               sx={{
-                                 backgroundColor: "divider",
-                                 p: 1.5,
+                                 border: "solid 1px",
+                                 borderColor: "divider",
+                                 backgroundColor: "background.paper",
+                                 p: 1,
                                  borderRadius: "5px",
+                                 display: "flex",
+                                 gap: 0.8,
                               }}
                            >
+                              <ContactMailOutlined fontSize="small" />
                               {listing.lister.contactDetails}
                            </Typography>
                         </Box>

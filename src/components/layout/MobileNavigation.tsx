@@ -5,6 +5,7 @@ import { Menu, Close } from "@mui/icons-material";
 import Link from "next/link";
 import { navLinks } from "@/constants";
 import { useState } from "react";
+import NavLink from "../NavLink";
 
 export default function MobileNavigation() {
    const [isNavOpen, setIsNavOpen] = useState(false);
@@ -27,13 +28,7 @@ export default function MobileNavigation() {
    );
 }
 
-function MobileNav({
-   isNavOpen,
-   closeNav,
-}: {
-   isNavOpen: boolean;
-   closeNav: () => void;
-}) {
+function MobileNav({ isNavOpen, closeNav }: { isNavOpen: boolean; closeNav: () => void }) {
    return (
       <Drawer open={isNavOpen} onClose={closeNav} anchor="left">
          <Box
@@ -53,9 +48,14 @@ function MobileNav({
             </div>
 
             <ul className="list-none flex flex-col justify-center gap-4 my-auto h-fit">
-               {navLinks.map((link) => (
-                  <li key={link.path} onClick={closeNav}>
-                     <Link href={link.path}>{link.label}</Link>
+               {navLinks.map((navLink) => (
+                  <li key={navLink.path} onClick={closeNav}>
+                     <NavLink
+                        href={navLink.path}
+                        includes={navLink.path === "/accomodation" ? navLink.path : undefined}
+                     >
+                        {navLink.label}
+                     </NavLink>
                   </li>
                ))}
             </ul>

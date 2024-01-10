@@ -51,6 +51,7 @@ export default function Sidebar({
             display: { xs: showSidebar ? "block" : "none", md: "block" },
             overflowY: "auto",
             p: 2,
+            backgroundColor: "background.paper",
             ...{ ...(isMobile ? mobileStyles : desktopStyles) },
          }}
       >

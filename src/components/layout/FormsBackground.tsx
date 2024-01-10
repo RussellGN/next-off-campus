@@ -8,7 +8,8 @@ export const FormsBackground = ({ children }: PropsWithChildren) => {
    return (
       <Box
          sx={{
-            background: `linear-gradient(to top right, ${theme.palette.secondary.main}, ${theme.palette.secondary.dark})`,
+            // background: `linear-gradient(to top right, ${theme.palette.secondary.main}, ${theme.palette.secondary.dark})`,
+            background: `linear-gradient(to top right, ${theme.palette.primary.main}, ${theme.palette.primary.light})`,
             minHeight: "100vh",
             display: "flex",
             alignItems: "center",

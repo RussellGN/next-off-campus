@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Paper, Typography } from "@mui/material";
 import Link from "next/link";
 import { heroListings } from "@/data/heroListings";
 import { SimpleListingInterface } from "@/interfaces";
@@ -19,7 +19,8 @@ export default function Hero() {
             mt: 2.5,
             px: { xs: 1, sm: 4 },
             py: 6,
-            backgroundColor: "secondary.light",
+            // backgroundColor: "secondary.light",
+            backgroundColor: "background.paper",
             border: "solid thin",
             borderColor: "divider",
             borderRadius: "10px",
@@ -76,13 +77,14 @@ export default function Hero() {
 
 function HeroListingCard({ listing, index }: { listing: SimpleListingInterface; index: number }) {
    return (
-      <Box
+      <Paper
+         elevation={2}
          sx={{
             width: "33%",
             p: 0.2,
             borderRadius: "15px",
             backgroundColor: "white",
-            boxShadow: "1px 1px 4px grey",
+            // boxShadow: "1px 1px 4px grey",
             transform: index === 1 ? "scale(1.2)" : "",
          }}
       >
@@ -98,7 +100,8 @@ function HeroListingCard({ listing, index }: { listing: SimpleListingInterface; 
                   width: "100%",
                   height: "100%",
                   objectFit: "cover",
-                  borderRadius: "15px 15px 0 0",
+                  borderRadius: "15px 15px 5px 5px",
+                  // borderRadius: "15px 15px 0 0",
                }}
             />
          </AspectRatioContainer>
@@ -115,20 +118,22 @@ function HeroListingCard({ listing, index }: { listing: SimpleListingInterface; 
 
             <Typography
                noWrap
-               variant="caption"
+               // variant="caption"
                component="div"
                sx={{
                   my: 1,
-                  backgroundColor: "secondary.light",
+                  // backgroundColor: "secondary.light",
+                  backgroundColor: "divider",
+                  fontSize: "60% !important",
                   width: "fit-content",
                   mx: "auto",
-                  p: "1px 5px",
-                  borderRadius: "5px",
+                  p: "0.5px 3px",
+                  borderRadius: "2px",
                }}
             >
                $ {listing.rent}
             </Typography>
          </Box>
-      </Box>
+      </Paper>
    );
 }

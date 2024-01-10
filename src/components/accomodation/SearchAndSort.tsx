@@ -72,6 +72,12 @@ export default function SearchAndSort({
                variant="outlined"
                name="query"
                placeholder="Search..."
+               sx={{
+                  "& .MuiInputBase-root": {
+                     backgroundColor: "background.paper",
+                     borderRadius: "10px",
+                  },
+               }}
             />
 
             <FormControl size={isMobile ? "small" : "medium"}>
@@ -84,7 +90,11 @@ export default function SearchAndSort({
                   value={sortValue || "popularity"}
                   onChange={handleSortChange}
                   autoWidth
-                  sx={{ width: { sm: "fit-content" } }}
+                  sx={{
+                     width: { sm: "fit-content" },
+                     borderRadius: "10px",
+                     backgroundColor: "background.paper",
+                  }}
                >
                   <MenuItem value="popularity">Popularity</MenuItem>
                   <MenuItem value="date-des">
