@@ -4,14 +4,14 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import DetailsForm from "@/components/auth/DetailsForm";
 import AuthForm from "@/components/auth/AuthForm";
-import { ListerInterface } from "@/interfaces";
+import { getLister } from "@/lib/dataFetching";
 
 export default function Page({ params: { id } }: { params: { id: number } }) {
    const [submitting, setSubmitting] = useState(false);
    const [errorMessage, setErrorMessage] = useState("");
    const router = useRouter();
 
-   const lister = fetchLister(id);
+   const lister = getLister(id);
 
    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault();
@@ -54,16 +54,4 @@ export default function Page({ params: { id } }: { params: { id: number } }) {
          <DetailsForm editing lister={lister} />
       </AuthForm>
    );
-}
-
-function fetchLister(id: number): ListerInterface {
-   const dummyLister: ListerInterface = {
-      id,
-      username: "UZOCA",
-      email: "info@uzoca.com",
-      contactDetails: "Call +263 7756 8321 or Whatsapp us on +263 8399 7342",
-      listerType: "agent",
-   };
-
-   return dummyLister;
 }

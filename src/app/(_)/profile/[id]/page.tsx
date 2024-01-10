@@ -18,8 +18,8 @@ import {
 import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
 import Listings from "@/components/accomodation/Listings";
-import { ListerInterface } from "@/interfaces";
 import { useRouter } from "next/navigation";
+import { getLister } from "@/lib/dataFetching";
 
 export default function Page({ params: { id } }: { params: { id: number } }) {
    const [openLogoutDialog, setOpenLogoutDialog] = useState(false);
@@ -37,7 +37,7 @@ export default function Page({ params: { id } }: { params: { id: number } }) {
    const showLogoutDialog = () => setOpenLogoutDialog(true);
    const hideLogoutDialog = () => setOpenLogoutDialog(false);
 
-   const lister = fetchLister(id);
+   const lister = getLister(id);
 
    useEffect(() => {
       if (!lister) {
@@ -226,18 +226,6 @@ function LogoutDialog({
          </DialogActions>
       </Dialog>
    );
-}
-
-function fetchLister(id: number): ListerInterface {
-   const dummyLister: ListerInterface = {
-      id,
-      username: "UZOCA",
-      email: "info@uzoca.com",
-      contactDetails: "Call +263 7756 8321 or Whatsapp us on +263 8399 7342",
-      listerType: "agent",
-   };
-
-   return dummyLister;
 }
 
 function generateAvatarLetters(string: string): string {

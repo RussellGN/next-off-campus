@@ -1,7 +1,6 @@
 "use client";
 
-import { listings } from "@/data/listings";
-import { ListerInterface, ListingInterface } from "@/interfaces";
+import { ListingInterface } from "@/interfaces";
 import { Box, Button, Grid } from "@mui/material";
 import { useTheme, Typography } from "@mui/material";
 import {
@@ -19,6 +18,7 @@ import RelatedListings from "@/components/accomodation/RelatedListings";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { capitalize } from "@/lib/utils";
+import { getListing } from "@/lib/dataFetching";
 
 export default function Page({ params: { slug } }: { params: { slug: string } }) {
    const [imageOnView, setImageOnView] = useState(0);
@@ -193,11 +193,6 @@ export default function Page({ params: { slug } }: { params: { slug: string } })
             <RelatedListings />
          </>
       );
-}
-
-function getListing(slug: string): ListingInterface | undefined {
-   const dummyListing = listings.find((listing) => listing.slug === slug);
-   return dummyListing;
 }
 
 const StyledButton = styled("button")({
