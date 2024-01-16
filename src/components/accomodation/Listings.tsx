@@ -1,7 +1,6 @@
 import {
    KeyboardArrowRight,
    MonetizationOn,
-   Person,
    PlaceOutlined,
    DirectionsWalk,
 } from "@mui/icons-material";
@@ -50,7 +49,7 @@ export async function Listing({ listing }: { listing: ListingInterface }) {
             borderRadius: "10px",
          }}
       >
-         <Grid container>
+         <Grid container alignItems="center">
             <Grid item xs={12} md={4}>
                <Box
                   sx={{
@@ -64,7 +63,7 @@ export async function Listing({ listing }: { listing: ListingInterface }) {
                >
                   <div style={{ gridColumn: "span 2", gridRow: "span 2" }}>
                      <AspectContainedImage
-                        src={listing.images[0]}
+                        src={listing.images[0].image}
                         alt={listing.title}
                         style={{
                            borderRadius: 0,
@@ -75,7 +74,7 @@ export async function Listing({ listing }: { listing: ListingInterface }) {
 
                   <div>
                      <AspectContainedImage
-                        src={listing.images[1]}
+                        src={listing.images[1].image}
                         alt={listing.title}
                         style={{
                            borderRadius: 0,
@@ -86,7 +85,7 @@ export async function Listing({ listing }: { listing: ListingInterface }) {
 
                   <div>
                      <AspectContainedImage
-                        src={listing.images[2]}
+                        src={listing.images[2].image}
                         alt={listing.title}
                         style={{
                            borderRadius: 0,
@@ -155,7 +154,7 @@ export async function Listing({ listing }: { listing: ListingInterface }) {
                      }}
                   >
                      <DirectionsWalk fontSize="inherit" />
-                     {`${listing.distance}km to ${capitalize(listing.nearestTo)}`}
+                     {`${listing.distance}km to ${capitalize(listing.nearest_to)}`}
                   </Typography>
 
                   <Box
@@ -180,7 +179,7 @@ export async function Listing({ listing }: { listing: ListingInterface }) {
 
                      <span>
                         <ViewCountOrLister
-                           views={listing.viewCount ? listing.viewCount : 210}
+                           views={listing.view_count}
                            username={listing.lister.username}
                         />
                      </span>

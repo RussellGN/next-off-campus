@@ -29,10 +29,26 @@ export default function Hero() {
       >
          <Grid item xs={12} md="auto" sx={{ order: { xs: 2, md: 1 } }}>
             <Box sx={{ p: 1, textAlign: { xs: "center", md: "left" } }}>
-               <Typography variant="h4">No Res? No Problem</Typography>
+               <Typography variant="h4">
+                  No{" "}
+                  <Typography
+                     title="Residence on-campus"
+                     variant="inherit"
+                     component="span"
+                     sx={{
+                        color: "rgba(0,0,0,0.45)",
+                        cursor: "pointer",
+                     }}
+                  >
+                     Res
+                  </Typography>
+                  ? No Problem
+               </Typography>
                <Typography sx={{ maxWidth: "20rem", my: 2, mx: { xs: "auto", md: "0" } }}>
-                  Browse through countless accomodation listings available exclusively to college
-                  students in Zimbabwe
+                  {/* Browse through countless accomodation listings available exclusively to college
+                  students in Zimbabwe */}
+                  Find off-campus accomodation available exclusively to college students <br />
+                  in Zimbabwe
                </Typography>
                <div>
                   <Button component={Link} href="/accomodation">
@@ -45,15 +61,25 @@ export default function Hero() {
          <Grid item xs={12} md={5} sx={{ order: { xs: 1, md: 2 } }}>
             <Box sx={{ position: "relative" }}>
                <Box
+                  // sx={{
+                  //    display: { xs: "none", md: "block" },
+                  //    width: "15rem",
+                  //    height: "200rem",
+                  //    position: "absolute",
+                  //    right: "calc(50% - 7.5rem)",
+                  //    top: "-100rem",
+                  //    backgroundColor: "primary.main",
+                  //    transform: "rotate(-20deg)",
+                  // }}
                   sx={{
-                     display: { xs: "none", md: "block" },
+                     // display: { xs: "none", md: "block" },
                      width: "15rem",
                      height: "200rem",
                      position: "absolute",
-                     right: "calc(50% - 7.5rem)",
+                     right: { xs: "calc(50% - 13rem)", md: "calc(50% - 7.5rem)" },
                      top: "-100rem",
                      backgroundColor: "primary.main",
-                     transform: "rotate(-20deg)",
+                     transform: { xs: "rotate(-50deg)", md: "rotate(-20deg)" },
                   }}
                />
 
@@ -127,8 +153,10 @@ function HeroListingCard({ listing, index }: { listing: SimpleListingInterface; 
                   fontSize: "60% !important",
                   width: "fit-content",
                   mx: "auto",
-                  p: "0.5px 3px",
-                  borderRadius: "2px",
+                  // p: "0.5px 3px",
+                  // borderRadius: "2px",
+                  p: "1px 5px",
+                  borderRadius: "6px",
                }}
             >
                $ {listing.rent}

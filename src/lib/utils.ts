@@ -22,3 +22,9 @@ export function generateAvatarLetters(string: string): string {
    if (finalLetters.length > 1) return finalLetters.slice(0, 2);
    else return finalLetters;
 }
+
+export async function wait(seconds: number, log?: boolean) {
+   if (log) console.log("waiting");
+   await new Promise((resolve) => setTimeout(resolve, seconds * 1000));
+   if (log) console.log("done waiting");
+}

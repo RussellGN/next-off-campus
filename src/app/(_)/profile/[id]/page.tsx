@@ -121,7 +121,7 @@ export default function Page({ params: { id } }: { params: { id: number } }) {
                         >
                            {/* <ContactPage fontSize="small" /> */}
                            <KeyboardDoubleArrowRight fontSize="small" />
-                           <span>{lister.contactDetails}</span>
+                           <span>{lister.contact_details}</span>
                         </Typography>
                      </Box>
                   </Paper>

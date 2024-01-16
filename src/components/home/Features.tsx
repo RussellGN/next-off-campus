@@ -21,12 +21,11 @@ export default function features() {
          />
          <Typography variant="h6"> Landlords &amp; Agencies</Typography>
          <Typography className="max-w-md" sx={{ my: 2, px: 2 }}>
-            Do you have accomodation to advertise? Create a free account and
-            upload your listings.
+            Do you have accomodation to advertise? Create a free account and upload your listings.
          </Typography>
          <div>
             <Button component={Link} href="/signup">
-               Get Started
+               Signup
             </Button>
          </div>
       </Box>

@@ -33,7 +33,7 @@ export default function RelatedListing({
          }}
       >
          <AspectContainedImage
-            src={listing.images[0]}
+            src={listing.images[0].image}
             alt={listing.title}
             style={{ borderRadius: "8px" }}
          />

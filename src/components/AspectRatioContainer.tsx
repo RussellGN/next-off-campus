@@ -1,14 +1,20 @@
 "use client";
 
+import { Box, SxProps } from "@mui/material";
 import Image from "next/image";
 import React, { useState, useRef, useEffect, ReactNode } from "react";
 
 type propTypes = {
    children: ReactNode;
    ratio?: "16/9" | string;
+   containerStyles?: SxProps;
 };
 
-export default function AspectRatioContainer({ children, ratio = "16/9" }: propTypes) {
+export default function AspectRatioContainer({
+   children,
+   containerStyles,
+   ratio = "16/9",
+}: propTypes) {
    const [height, setHeight] = useState("fit-content");
    const itemRef = useRef<HTMLDivElement>(null);
 
@@ -34,9 +40,9 @@ export default function AspectRatioContainer({ children, ratio = "16/9" }: propT
    }, [ratio]);
 
    return (
-      <div ref={itemRef} style={{ width: "100%", height: height }}>
+      <Box ref={itemRef} sx={{ width: "100%", height: height, ...containerStyles }}>
          {children}
-      </div>
+      </Box>
    );
 }
 
@@ -45,14 +51,18 @@ export function AspectContainedImage({
    src,
    alt,
    style,
+   containerStyles,
+   children,
 }: {
    ratio?: "string";
    src: string;
    alt: string;
    style?: object;
+   containerStyles?: SxProps;
+   children?: ReactNode;
 }) {
    return (
-      <AspectRatioContainer ratio={ratio}>
+      <AspectRatioContainer ratio={ratio} containerStyles={containerStyles}>
          <Image
             priority
             src={src}
@@ -68,6 +78,7 @@ export function AspectContainedImage({
                ...style,
             }}
          />
+         {children}
       </AspectRatioContainer>
    );
 }

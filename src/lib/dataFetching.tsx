@@ -11,8 +11,8 @@ export function getLister(id: number): ListerInterface {
       id,
       username: "UZOCA",
       email: "info@uzoca.com",
-      contactDetails: "Call +263 7756 8321 or Whatsapp us on +263 8399 7342",
-      listerType: "agent",
+      contact_details: "Call +263 7756 8321 or Whatsapp us on +263 8399 7342",
+      lister_type: "agent",
    };
 
    return dummyLister;

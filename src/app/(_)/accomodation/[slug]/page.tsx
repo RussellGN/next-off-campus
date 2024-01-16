@@ -79,7 +79,7 @@ export default function Page({ params: { slug } }: { params: { slug: string } })
                         </Box>
 
                         <AspectContainedImage
-                           src={listing.images[imageOnView]}
+                           src={listing.images[imageOnView].image}
                            alt={listing.title}
                            style={{
                               borderRadius: "10px",
@@ -90,12 +90,12 @@ export default function Page({ params: { slug } }: { params: { slug: string } })
                      </Box>
 
                      <Box sx={{ display: "flex", gap: 0.4, py: 1, overflow: "auto" }}>
-                        {listing.images.map((image: string, index: number) => (
-                           <Box key={image + index} sx={{ width: "20%", minWidth: "5rem" }}>
+                        {listing.images.map((image, index) => (
+                           <Box key={"img-" + image.id} sx={{ width: "20%", minWidth: "5rem" }}>
                               <AspectRatioContainer>
                                  <StyledImg
                                     onClick={() => setImageOnView(index)}
-                                    src={image}
+                                    src={image.image}
                                     alt={listing.title}
                                     width={160}
                                     height={90}
@@ -150,7 +150,7 @@ export default function Page({ params: { slug } }: { params: { slug: string } })
 
                         <Typography sx={{ mb: 1.5 }}>
                            <DirectionsWalk fontSize="small" sx={{ mr: 0.8, mt: -0.2 }} />
-                           {`${listing.distance} km to ${listing.nearestTo}`}
+                           {`${listing.distance} km to ${listing.nearest_to}`}
                         </Typography>
 
                         <Typography sx={{ mb: 1.5 }}>
@@ -200,7 +200,7 @@ export default function Page({ params: { slug } }: { params: { slug: string } })
                               }}
                            >
                               <ContactMailOutlined fontSize="small" />
-                              {listing.lister.contactDetails}
+                              {listing.lister.contact_details}
                            </Typography>
                         </Box>
                      </div>

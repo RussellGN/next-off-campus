@@ -14,14 +14,8 @@
 
 ## suggestions
 
-1. elongate price box on hero listing boxes
-2. get a better aspect ratio container
-3. consider replacing some dummy images and data
-4. make the hero title more interesting
-5. get a graphic for the hero for mobile devices
-6. change signup buttons' text to 'get listed'
-7. consider moving the images tab to the end of the listing form
-8. determine how previewing images will work when editing a listing
-9. better instructions, validation, feedback and error handling on the listing form
-10.   make the hero text better
-11.   optimize
+1. get a better aspect ratio container
+2. consider moving the images tab to the end of the listing form
+3. determine how previewing images will work when editing a listing
+4. better instructions, validation, feedback and error handling on the listing form
+5. optimize

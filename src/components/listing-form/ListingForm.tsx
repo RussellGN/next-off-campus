@@ -5,6 +5,11 @@ import {
    Box,
    Button,
    CircularProgress,
+   Dialog,
+   DialogActions,
+   DialogContent,
+   DialogContentText,
+   DialogTitle,
    Input,
    SxProps,
    TextField,
@@ -13,8 +18,9 @@ import {
 import { ArrowBack, CheckCircle, InfoOutlined, WarningAmber } from "@mui/icons-material";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { capitalize } from "@/lib/utils";
+import { capitalize, wait } from "@/lib/utils";
 import PreviewImages from "./PreviewImages";
+import PreviewImagesFromServer from "./PreviewImagesFromServer";
 
 const tabs = {
    images: "images",
@@ -33,6 +39,7 @@ export default function ListingForm({ listing }: { listing?: ListingInterface })
    const formRef = useRef<HTMLFormElement>();
 
    function isFormComplete(): boolean {
+      if (listing) return true;
       let isComplete = true;
       Object.keys(data).forEach((item) => {
          if (item === "images") {
@@ -49,18 +56,18 @@ export default function ListingForm({ listing }: { listing?: ListingInterface })
    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault();
       setActiveTab(tabs.submitting);
-      const formData = new FormData(e.currentTarget);
+      await wait(3, true);
+      const formData = new FormData(formRef.current);
 
       function submitListing(data: FormData, listingID?: number): any {
          const formDataObject: any = {};
          if (listingID) formDataObject["id"] = listingID;
 
-         setTimeout(() => {
-            for (const entry of data.entries()) {
-               const [name, value] = entry;
-               formDataObject[name] = value;
-            }
-         }, 3000);
+         for (const entry of data.entries()) {
+            const [name, value] = entry;
+            formDataObject[name] = value;
+            formDataObject["images"] = data.getAll("images"); // since images cariies multiple values
+         }
 
          return { error: null, message: formDataObject };
          // return { error: "invalid inputs", message: formDataObject };
@@ -288,9 +295,10 @@ function TabControlButtons({
 }
 
 function ImagesTab({ listing }: { listing?: ListingInterface }) {
-   const [images, setImages] = useState([]);
+   const [images, setImages] = useState<File[]>([]);
+
    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-      setImages([...e.currentTarget.files]);
+      setImages(e.currentTarget.files?.length ? Array.from(e.currentTarget.files) : []);
    }
 
    return (
@@ -306,7 +314,7 @@ function ImagesTab({ listing }: { listing?: ListingInterface }) {
             onChange={handleChange}
             accept="image/*"
             multiple
-            required
+            required={listing ? false : true}
          />
 
          <Box
@@ -314,8 +322,7 @@ function ImagesTab({ listing }: { listing?: ListingInterface }) {
                height: "30vh",
                flexGrow: 1,
                overflowY: "auto",
-               display: "grid",
-               gridTemplateColumns: "1fr 1fr 1fr",
+               overflowX: "hidden",
                backgroundColor: "divider",
                p: 0.5,
                borderRadius: "10px",
@@ -323,11 +330,20 @@ function ImagesTab({ listing }: { listing?: ListingInterface }) {
                position: "relative",
             }}
          >
-            {images.length ? (
-               <PreviewImages images={images} />
-            ) : (
-               <p className="col-span-3 flex items-center justify-center">Images preview</p>
-            )}
+            {listing && <ImageRemovalBox listing={listing} />}
+            <Box
+               sx={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr 1fr",
+                  width: "100%",
+               }}
+            >
+               {images.length ? (
+                  <PreviewImages images={images} />
+               ) : (
+                  <p className="col-span-3 flex items-center justify-center">Images preview</p>
+               )}
+            </Box>
          </Box>
       </>
    );
@@ -350,7 +366,7 @@ function InfoTab({ listing }: { listing?: ListingInterface }) {
             //    minLength: 5,
             //    maxLength: 30,
             // }}
-            required
+            required={listing ? false : true}
             fullWidth
          />
 
@@ -364,7 +380,7 @@ function InfoTab({ listing }: { listing?: ListingInterface }) {
             //    min: 10,
             //    max: 10000,
             // }}
-            required
+            required={listing ? false : true}
             fullWidth
          />
 
@@ -378,21 +394,21 @@ function InfoTab({ listing }: { listing?: ListingInterface }) {
             //    minLength: 5,
             //    maxLength: 30,
             // }}
-            required
+            required={listing ? false : true}
             fullWidth
          />
 
          <TextField
             size="small"
             label="Nearest Institution"
-            name="nearestTo"
-            defaultValue={listing?.nearestTo}
+            name="nearest_to"
+            defaultValue={listing?.nearest_to}
             placeholder="e.g University of Zimbabwe"
             // inputProps={{
             //    minLength: 2,
             //    maxLength: 40,
             // }}
-            required
+            required={listing ? false : true}
             fullWidth
          />
 
@@ -430,7 +446,7 @@ function InfoTab({ listing }: { listing?: ListingInterface }) {
             //    minLength: 5,
             //    maxLength: 30,
             // }}
-            required
+            required={listing ? false : true}
             fullWidth
          />
       </>
@@ -456,7 +472,7 @@ function FurtherInfoTab({ listing }: { listing?: ListingInterface }) {
             // }}
             rows={10}
             multiline
-            required
+            required={listing ? false : true}
             fullWidth
          />
       </>
@@ -525,4 +541,25 @@ function SubmittingTab() {
          <Typography textAlign="center">Submitting...Please wait</Typography>
       </div>
    );
+}
+
+function ImageRemovalBox({ listing }: { listing: ListingInterface }) {
+   if (listing.images.length)
+      return (
+         <Box
+            sx={{
+               // flexGrow: 1,
+               // overflowY: "auto",
+               // borderRadius: "10px",
+               // backgroundColor: "divider",
+               // p: 0.5,
+               display: "grid",
+               gridTemplateColumns: "1fr 1fr 1fr",
+               width: "100%",
+               position: "relative",
+            }}
+         >
+            <PreviewImagesFromServer images={listing.images} />
+         </Box>
+      );
 }

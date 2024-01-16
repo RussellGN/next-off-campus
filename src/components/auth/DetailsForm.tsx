@@ -43,9 +43,9 @@ export default function DetailsForm({
             multiline
             rows={3}
             label="Contact details"
-            name="contact-details"
+            name="contact_details"
             placeholder="Phone, email, social media and any other means for clients to contact you."
-            defaultValue={lister?.contactDetails}
+            defaultValue={lister?.contact_details}
             inputProps={{
                minLength: 5,
                maxLength: 100,
@@ -54,7 +54,7 @@ export default function DetailsForm({
             fullWidth
          />
 
-         <RadioGroup name="lister-type" defaultValue={lister?.listerType || "agent"}>
+         <RadioGroup name="lister_type" defaultValue={lister?.lister_type || "agent"}>
             <div className="flex gap-4 items-center justify-center">
                <FormControlLabel label="Agent" value="agent" control={<Radio size="small" />} />
                <FormControlLabel

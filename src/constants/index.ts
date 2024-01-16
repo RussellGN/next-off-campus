@@ -36,6 +36,7 @@ export const radioCheckFilters: CheckboxOrRadioFilterInterface[] = [
          { label: "Boarding house", value: "boarding" },
          { label: "Cottage", value: "cottage" },
          { label: "Room", value: "room" },
+         { label: "Other", value: "other" },
       ],
       default: null,
    },
