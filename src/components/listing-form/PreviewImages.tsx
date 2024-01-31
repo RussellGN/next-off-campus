@@ -1,5 +1,6 @@
 import { memo } from "react";
 import { AspectContainedImage } from "../AspectRatioContainer";
+import AspectContainedNextImage from "../AspectContainedNextImage";
 
 export default memo(
    function PreviewImages({ images }: { images: File[] }) {
@@ -9,11 +10,11 @@ export default memo(
                const imgUrl = URL.createObjectURL(img);
 
                return (
-                  <AspectContainedImage
+                  <AspectContainedNextImage
                      key={"img-" + index}
                      src={imgUrl}
                      alt="preview image"
-                     style={{ borderRadius: "10px", border: "solid transparent" }}
+                     sx={{ borderRadius: "10px", border: "solid transparent" }}
                   />
                );
             })}

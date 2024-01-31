@@ -54,14 +54,10 @@ export default function DetailsForm({
             fullWidth
          />
 
-         <RadioGroup name="lister_type" defaultValue={lister?.lister_type || "agent"}>
+         <RadioGroup name="lister_type" defaultValue={lister?.lister_type || "A"}>
             <div className="flex gap-4 items-center justify-center">
-               <FormControlLabel label="Agent" value="agent" control={<Radio size="small" />} />
-               <FormControlLabel
-                  label="Landlord"
-                  value="landlord"
-                  control={<Radio size="small" />}
-               />
+               <FormControlLabel label="Agent" value="A" control={<Radio size="small" />} />
+               <FormControlLabel label="Landlord" value="L" control={<Radio size="small" />} />
             </div>
          </RadioGroup>
 

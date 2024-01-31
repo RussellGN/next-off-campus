@@ -2,6 +2,7 @@ import { Box, Grid, SxProps, Typography } from "@mui/material";
 import { AspectContainedImage } from "@/components/AspectRatioContainer";
 import Link from "next/link";
 import { ListingInterface } from "@/interfaces";
+import AspectContainedNextImage from "../AspectContainedNextImage";
 
 export default function RelatedListing({
    listing,
@@ -32,10 +33,12 @@ export default function RelatedListing({
             ...sx,
          }}
       >
-         <AspectContainedImage
+         <AspectContainedNextImage
             src={listing.images[0].image}
             alt={listing.title}
-            style={{ borderRadius: "8px" }}
+            sx={{ borderRadius: "8px" }}
+            quality={100}
+            aspectRatio="3 / 2"
          />
 
          <Box

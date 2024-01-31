@@ -12,6 +12,12 @@
 7. deploy production
 8. about and contact
 
+## todo
+
+1. deal with aspect ratio container
+2. move client data fetches to server route handlers one by one
+3. move form submission mutations to serve actions one by one
+
 ## suggestions
 
 1. get a better aspect ratio container

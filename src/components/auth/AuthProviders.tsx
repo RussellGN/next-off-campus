@@ -6,7 +6,7 @@ export default function AuthProviders() {
    const router = useRouter();
 
    function providerLogin() {
-      router.push("/profile/133");
+      router.push("/profile");
    }
 
    return (

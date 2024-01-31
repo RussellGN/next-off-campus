@@ -14,13 +14,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
    return (
       <html lang="en">
-         <body className="min-h-screen">
-            <Providers>
+         <Providers>
+            <body className="min-h-screen">
                <Navbar />
                <Container component="main">{children}</Container>
                <Footer />
-            </Providers>
-         </body>
+            </body>
+         </Providers>
       </html>
    );
 }

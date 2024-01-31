@@ -4,18 +4,27 @@ import { ArrowUpward, KeyboardDoubleArrowRight } from "@mui/icons-material";
 import { Box, Container, IconButton, Link as MuiLink, Typography } from "@mui/material";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { ListerInterface, ListingInterface } from "@/interfaces";
+import { useEffect, useState } from "react";
 
 export default function Footer() {
+   const [lister, setLister] = useState<ListerInterface | null>(null);
    const pathname = usePathname();
-   let ommitFooter = false;
 
-   ["signup", "login", "create-listing", "edit-profile", "edit-listing"].forEach((route) => {
-      if (pathname.includes(route)) {
-         ommitFooter = true;
+   useEffect(() => {
+      async function getAndSetLister() {
+         const res = await fetch("/api/auth");
+         if (!res.ok) throw new Error("failed to fetch lister");
+
+         const data = (await res.json()) as {
+            lister: ListerInterface | null;
+            lister_listings?: ListingInterface[];
+         };
+         setLister(data.lister);
       }
-   });
 
-   if (ommitFooter) return;
+      getAndSetLister();
+   }, [pathname]);
 
    return (
       <Container>
@@ -29,15 +38,19 @@ export default function Footer() {
             }}
          >
             <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
-               <MuiLink
-                  underline="none"
-                  component={Link}
-                  href="/auth/login"
-                  sx={{ "&:hover": { color: "primary.main" } }}
-               >
-                  <KeyboardDoubleArrowRight sx={{ mr: 0.4 }} />
-                  Login
-               </MuiLink>
+               {lister ? (
+                  ""
+               ) : (
+                  <MuiLink
+                     underline="none"
+                     component={Link}
+                     href="/auth/login"
+                     sx={{ "&:hover": { color: "primary.main" } }}
+                  >
+                     <KeyboardDoubleArrowRight sx={{ mr: 0.4 }} />
+                     Login
+                  </MuiLink>
+               )}
                <MuiLink
                   underline="none"
                   component={Link}

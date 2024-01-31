@@ -12,6 +12,7 @@ import {
    IconButton,
 } from "@mui/material";
 import { DeleteOutlined } from "@mui/icons-material";
+import AspectContainedNextImage from "../AspectContainedNextImage";
 
 export default memo(
    function PreviewImagesFromServer({ images }: { images: { id: number; image: string }[] }) {
@@ -56,13 +57,12 @@ export default memo(
 
                if (shouldReturn)
                   return (
-                     <AspectContainedImage
-                        key={"img-" + img.id}
-                        src={img.image}
-                        alt="preview image"
-                        style={{ borderRadius: "10px", border: "solid transparent" }}
-                        containerStyles={{ position: "relative" }}
-                     >
+                     <div className="relative" key={"img-" + img.id}>
+                        <AspectContainedNextImage
+                           src={img.image}
+                           alt="preview image"
+                           sx={{ borderRadius: "10px", border: "solid transparent" }}
+                        />
                         <IconButton
                            onClick={() => {
                               setLatestVictim(img.id);
@@ -84,7 +84,36 @@ export default memo(
                         >
                            <DeleteOutlined />
                         </IconButton>
-                     </AspectContainedImage>
+                     </div>
+                     // <AspectContainedImage
+                     //    key={"img-" + img.id}
+                     //    src={img.image}
+                     //    alt="preview image"
+                     //    style={{ borderRadius: "10px", border: "solid transparent" }}
+                     //    containerStyles={{ position: "relative" }}
+                     // >
+                     //    <IconButton
+                     //       onClick={() => {
+                     //          setLatestVictim(img.id);
+                     //          showRemoveDialog();
+                     //       }}
+                     //       color="error"
+                     //       size="small"
+                     //       sx={{
+                     //          backgroundColor: "error.main",
+                     //          color: "white !important",
+                     //          position: "absolute",
+                     //          top: "-5px",
+                     //          right: "-5px",
+                     //          "&:hover": {
+                     //             backgroundColor: "error.light",
+                     //             color: "white !important",
+                     //          },
+                     //       }}
+                     //    >
+                     //       <DeleteOutlined />
+                     //    </IconButton>
+                     // </AspectContainedImage>
                   );
             })}
          </>

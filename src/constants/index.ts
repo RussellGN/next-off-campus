@@ -65,3 +65,20 @@ export const radioCheckFilters: CheckboxOrRadioFilterInterface[] = [
       default: null,
    },
 ];
+
+export const defaultAccomodationType = "boarding";
+
+export const accomodationTypes: { label: string; value: string }[] = [
+   { label: "House", value: "house" },
+   { label: "Apartment", value: "apartment" },
+   { label: "Boarding house", value: "boarding" },
+   { label: "Cottage", value: "cottage" },
+   { label: "Room", value: "room" },
+   { label: "Other", value: "other" },
+];
+
+export const fetchTags = {
+   listings: "listings",
+   detailedListing: "detailed-listings",
+   listerProfile: "lister-profile",
+};

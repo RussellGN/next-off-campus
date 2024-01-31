@@ -4,8 +4,8 @@ import Listings from "@/components/accomodation/Listings";
 import SearchAndSort from "@/components/accomodation/SearchAndSort";
 import Sidebar from "@/components/accomodation/Sidebar";
 import useIsMobile from "@/hooks/useIsMobile";
-import { Box, Container, Grid } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Box, CircularProgress, Grid } from "@mui/material";
+import { Suspense, useEffect, useState } from "react";
 
 export default function Page() {
    const [filtersFormNumber, setFiltersFormNumber] = useState(1);
@@ -37,13 +37,25 @@ export default function Page() {
                filtersFormNumber={filtersFormNumber}
                incrementFiltersFormNumber={incrementFiltersFormNumber}
             />
+
             <Grid item xs={12} md>
                <Box sx={{ p: 2 }}>
                   <SearchAndSort
                      openSidebar={() => setShowSidebar(true)}
                      incrementFiltersFormNumber={incrementFiltersFormNumber}
                   />
-                  <Listings />
+                  <Suspense
+                     fallback={
+                        <div
+                           style={{ height: "40vh" }}
+                           className="flex justify-center items-center"
+                        >
+                           <CircularProgress />
+                        </div>
+                     }
+                  >
+                     <Listings />
+                  </Suspense>
                </Box>
             </Grid>
          </Grid>

@@ -1,5 +1,6 @@
 "use client";
 
+import { getCookie } from "@/lib/utils";
 import { DeleteOutlined, Edit } from "@mui/icons-material";
 import {
    Button,
@@ -25,6 +26,23 @@ export default function ListerOptions({
    const pathname = usePathname();
 
    function confirmDelete() {
+      async function deleteListing(listingSlug: string) {
+         const token = getCookie("token");
+         if (!token) throw new Error("You do not have the permissions to delete this listing");
+         const res = await fetch(`/api/listings/${listingSlug}`, {
+            method: "DELETE",
+            headers: {
+               Authorization: `Token ${token}`,
+            },
+         });
+
+         if (!res.ok) throw new Error("failed to delete listing");
+
+         const data = (await res.json()) as { message: string };
+      }
+
+      deleteListing(listingSlug);
+
       alert("deleted listing with slug: " + listingSlug);
       hideDeleteDialog();
    }

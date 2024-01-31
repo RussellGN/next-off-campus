@@ -10,17 +10,24 @@ import {
    DialogContent,
    DialogContentText,
    DialogTitle,
+   FormControl,
    Input,
+   InputLabel,
+   MenuItem,
+   Select,
    SxProps,
    TextField,
    Typography,
 } from "@mui/material";
 import { ArrowBack, CheckCircle, InfoOutlined, WarningAmber } from "@mui/icons-material";
 import { useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { capitalize, wait } from "@/lib/utils";
 import PreviewImages from "./PreviewImages";
 import PreviewImagesFromServer from "./PreviewImagesFromServer";
+import API from "@/lib/API";
+import { accomodationTypes, defaultAccomodationType } from "@/constants";
+import { createListingAction, updateListingAction } from "@/actions";
 
 const tabs = {
    images: "images",
@@ -53,37 +60,70 @@ export default function ListingForm({ listing }: { listing?: ListingInterface })
       return isComplete;
    }
 
+   // async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+   //    e.preventDefault();
+   //    setActiveTab(tabs.submitting);
+   //    await wait(3, true);
+   //    const formData = new FormData(formRef.current);
+
+   //    function submitListing(data: FormData, listingID?: number): any {
+   //       const formDataObject: any = {};
+   //       if (listingID) formDataObject["id"] = listingID;
+
+   //       for (const entry of data.entries()) {
+   //          const [name, value] = entry;
+   //          formDataObject[name] = value;
+   //          formDataObject["images"] = data.getAll("images"); // since images cariies multiple values
+   //       }
+
+   //       return { error: null, message: formDataObject };
+   //       // return { error: "invalid inputs", message: formDataObject };
+   //    }
+
+   //    let res: any;
+   //    if (listing) res = await submitListing(formData, listing.id as number);
+   //    else res = await submitListing(formData);
+
+   //    if (res.error) {
+   //       setErrorMessage(res.error);
+   //       setActiveTab(tabs.error);
+   //    } else {
+   //       console.log("new listing created", res.message);
+   //       setActiveTab(tabs.success);
+   //    }
+   // }
+
    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault();
       setActiveTab(tabs.submitting);
       await wait(3, true);
       const formData = new FormData(formRef.current);
 
-      function submitListing(data: FormData, listingID?: number): any {
-         const formDataObject: any = {};
-         if (listingID) formDataObject["id"] = listingID;
+      for (let entry of formData.entries()) console.log(entry[1]);
+      console.log(formData.getAll("images"));
 
-         for (const entry of data.entries()) {
-            const [name, value] = entry;
-            formDataObject[name] = value;
-            formDataObject["images"] = data.getAll("images"); // since images cariies multiple values
-         }
+      // let res: { listing: ListingInterface; message: string };
+      // if (listing) res = await API.updateListing(listing.slug, formData);
+      // else res = await API.createListing(formData);
+      if (listing) {
+         const updateListingActionWithSlug = updateListingAction.bind(null, listing.slug);
+         await updateListingActionWithSlug(formData);
+      } else await createListingAction(formData);
 
-         return { error: null, message: formDataObject };
-         // return { error: "invalid inputs", message: formDataObject };
-      }
+      // redirect("/profile");
 
-      let res: any;
-      if (listing) res = await submitListing(formData, listing.id as number);
-      else res = await submitListing(formData);
-
-      if (res.error) {
-         setErrorMessage(res.error);
-         setActiveTab(tabs.error);
-      } else {
-         console.log("new listing created", res.message);
-         setActiveTab(tabs.success);
-      }
+      setActiveTab(tabs.success);
+      // if (res.listing) {
+      //    setActiveTab(tabs.success);
+      //    console.log(res);
+      // } else setActiveTab(tabs.error);
+      // if (res.error) {
+      //    setErrorMessage(res.error);
+      //    setActiveTab(tabs.error);
+      // } else {
+      //    console.log("new listing created", res.message);
+      //    setActiveTab(tabs.success);
+      // }
    }
 
    function setCurrentFormData() {
@@ -350,6 +390,10 @@ function ImagesTab({ listing }: { listing?: ListingInterface }) {
 }
 
 function InfoTab({ listing }: { listing?: ListingInterface }) {
+   const [accomodationType, setAccomodationType] = useState(
+      () => listing?.accomodation_type || defaultAccomodationType
+   );
+
    return (
       <>
          <Typography paragraph textAlign="center">
@@ -412,29 +456,25 @@ function InfoTab({ listing }: { listing?: ListingInterface }) {
             fullWidth
          />
 
-         {/* <FormControl size="small" sx={{ mb: 3, width: "100%" }}>
-            <InputLabel id="nearest-label">Nearest Institution</InputLabel>
+         <FormControl size="small" fullWidth>
+            <InputLabel id="accomodation-type-label">Type of Accomodation</InputLabel>
             <Select
-               labelId="nearest-label"
-               id="nearest-select"
-               label="Nearest Institution"
-               name="nearest-institution"
-               value={formState.nearestInstitution}
-               onChange={(e) =>
-                  dispatch({
-                     type: "nearest-institution-changed",
-                     options: { value: e.target.value },
-                  })
-               }
+               labelId="accomodation-type-label"
+               id="accomodation-type"
+               label="Type of Accomodation"
+               name="accomodation_type"
+               value={accomodationType}
+               onChange={(e) => setAccomodationType(e.target.value)}
                fullWidth
+               sx={{ borderRadius: "20px" }}
             >
-               <MenuItem value="uz">University of Zimbabwe</MenuItem>
-               <MenuItem value="msu">Midlands State University</MenuItem>
-               <MenuItem value="hit">Harare Institute Of Technology</MenuItem>
-               <MenuItem value="htc">Harare Teachers College</MenuItem>
-               <MenuItem value="htc">Other</MenuItem>
+               {accomodationTypes.map((item) => (
+                  <MenuItem key={item.value} value={item.value}>
+                     {item.label}
+                  </MenuItem>
+               ))}
             </Select>
-         </FormControl> */}
+         </FormControl>
 
          <TextField
             size="small"
@@ -544,7 +584,7 @@ function SubmittingTab() {
 }
 
 function ImageRemovalBox({ listing }: { listing: ListingInterface }) {
-   if (listing.images.length)
+   if (listing.images?.length)
       return (
          <Box
             sx={{

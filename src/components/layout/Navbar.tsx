@@ -1,13 +1,12 @@
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import AnimatedHeader from "./AnimatedHeader";
 import Logo from "../Logo";
-import Link from "next/link";
 import MobileNavigation from "./MobileNavigation";
 import { navLinks } from "@/constants";
 import NavLink from "../NavLink";
 import ListerAvatarOrSignup from "./ListerAvatarOrSignup";
 
-export default function Navbar() {
+export default async function Navbar() {
    return (
       <AnimatedHeader>
          <div className="flex items-center justify-between">
@@ -30,7 +29,7 @@ export default function Navbar() {
                      </Box>
                   ))}
                   <li>
-                     <ListerAvatarOrSignup avatarSx={{ ml: 2 }} signupSx={{ ml: 2 }} />
+                     <ListerAvatarOrSignup />
                   </li>
                   <MobileNavigation />
                </ul>

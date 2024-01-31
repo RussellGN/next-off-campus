@@ -2,8 +2,14 @@ export interface ListerInterface {
    id: number | string;
    username: string;
    email: string;
-   lister_type: "agent" | "landlord";
+   lister_type: "A" | "L";
    contact_details: string;
+   listings?: ListingInterface[];
+}
+
+export interface ImageInterface {
+   id: number;
+   image: string;
 }
 
 export interface ListingInterface {
@@ -13,14 +19,14 @@ export interface ListingInterface {
    rent: number;
    location: string;
    nearest_to: string;
-   patents_needed: number;
    distance: number;
    accomodation_type: "boarding" | "house" | "cottage" | "apartment" | "other";
    description: string;
    date: string;
-   lister: ListerInterface;
-   images: { id: number; image: string }[];
+   patents_needed: number;
    view_count: number;
+   lister: ListerInterface;
+   images: ImageInterface[];
 }
 
 export interface SimpleListingInterface {

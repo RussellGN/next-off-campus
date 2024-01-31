@@ -1,8 +1,13 @@
 import { Box, Typography } from "@mui/material";
 import RelatedListing from "./RelatedListing";
 import { listings } from "@/data/listings";
+import { ListingInterface } from "@/interfaces";
 
-export default function RelatedListings() {
+export default function RelatedListings({
+   related_listings,
+}: {
+   related_listings: ListingInterface[];
+}) {
    return (
       <>
          <Typography variant="h6" sx={{ my: 3, textAlign: "center" }}>
@@ -17,7 +22,7 @@ export default function RelatedListings() {
             }}
          >
             <Box sx={{ display: "flex", gap: 1.5, overflow: "auto" }}>
-               {listings?.map((listing) => (
+               {related_listings?.map((listing) => (
                   <RelatedListing key={listing.id} width="15%" listing={listing} />
                ))}
             </Box>

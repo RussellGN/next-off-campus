@@ -20,7 +20,7 @@ export default function cta() {
          }}
       >
          <Image
-            alt="graphics"
+            alt=""
             src={imagesDescriptive.apartments}
             style={{
                width: "35rem",
