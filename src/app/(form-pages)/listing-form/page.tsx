@@ -12,15 +12,23 @@ import {
    TextField,
    Typography,
 } from "@mui/material";
-import { ArrowBack, CheckCircle, InfoOutlined, KeyboardArrowRight, WarningAmberRounded } from "@mui/icons-material";
+import {
+   ArrowBack,
+   CheckCircle,
+   InfoOutlined,
+   KeyboardArrowRight,
+   Warning,
+   WarningAmberOutlined,
+   WarningAmberRounded,
+   WarningOutlined,
+} from "@mui/icons-material";
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { capitalize, wait } from "@/lib/utils";
 import PreviewImages from "@/components/listing-form/PreviewImages";
-import { accomodationTypes } from "@/constants";
+import { accomodationTypes, defaultAccomodationType } from "@/constants";
 import Link from "next/link";
-import { updateListingAction } from "@/actions";
-import PreviewImagesFromServer from "./PreviewImagesFromServer";
-
+import { createListingAction } from "@/actions";
+import { ListingInterface } from "@/interfaces";
 const tabs = {
    images: "images",
    info: "info",
@@ -29,15 +37,12 @@ const tabs = {
    success: "success",
 };
 
-export default function ListingForm({ listing }: { listing: ListingInterface }) {
+export default function Page() {
    const [activeTab, setActiveTab] = useState(tabs.images);
-   const [housingType, setHousingType] = useState<"boarding" | "house" | "cottage" | "apartment" | "other">(
-      listing.accomodation_type
-   );
+   const [housingType, setHousingType] = useState(defaultAccomodationType);
    const [images, setImages] = useState<File[]>([]); // syncs with image file input in order to display image previews
    const [warningVisible, setWarningVisible] = useState(false);
    const responseRef = useRef<{ message: string; listing: ListingInterface } | null>(null);
-
    async function showWarning() {
       await wait(1);
       setWarningVisible(true);
@@ -52,7 +57,7 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
       setActiveTab(tabs.submitting);
 
       const formData = new FormData(e.currentTarget);
-      const res = await updateListingAction(listing.slug, formData);
+      const res = await createListingAction(formData);
       console.log(res);
       responseRef.current = res;
       setActiveTab(tabs.success);
@@ -120,16 +125,16 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
             </Button>
          </div>
 
-         <Typography variant="h6" textAlign="center" noWrap sx={{ width: "100%", px: 4 }}>
-            Editing {`"${listing.title}"`}
+         <Typography variant="h6" textAlign="center">
+            New Listing
          </Typography>
 
          <Typography variant="body2">{capitalize(activeTab)}</Typography>
 
          <div className={activeTab === tabs.images ? "flex flex-col items-center gap-4 w-full" : "hidden"}>
             <Typography paragraph textAlign="center">
-               <InfoOutlined fontSize="small" sx={{ mt: -0.5 }} /> Upload new images and/or remove old ones! The first image
-               will be used as the cover image.
+               <InfoOutlined fontSize="small" sx={{ mt: -0.5 }} /> First, upload images! The first image will be used as the
+               cover image.
             </Typography>
 
             <input
@@ -160,18 +165,17 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
                   gap: 0.5,
                }}
             >
-               <PreviewImagesFromServer images={listing.images} />
                {images.length ? (
                   <PreviewImages images={images} />
                ) : (
-                  <p className="col-span-3 p-4 text-center">New images will preview here once selected</p>
+                  <p className="col-span-3 p-4 text-center">Images will preview here once selected</p>
                )}
             </Box>
          </div>
 
          <div className={activeTab === tabs.info ? "flex flex-col items-center gap-4 w-full" : "hidden"}>
             <Typography paragraph textAlign="center">
-               <InfoOutlined fontSize="small" sx={{ mt: -0.5 }} /> Edit details to your liking.
+               <InfoOutlined fontSize="small" sx={{ mt: -0.5 }} /> Provide the following details.
             </Typography>
 
             <TextField
@@ -179,7 +183,6 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
                label="Title"
                name="title"
                placeholder="e.g Comfy apartment"
-               defaultValue={listing.title}
                inputProps={{ minLength: 5, maxLength: 30 }}
                required
                fullWidth
@@ -190,7 +193,6 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
                label="Rent - USD/month"
                name="rent"
                type="number"
-               defaultValue={listing.rent}
                inputProps={{ min: 10, max: 10000 }}
                required
                fullWidth
@@ -201,7 +203,6 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
                label="Location - City & Suburb"
                name="location"
                placeholder="e.g Harare, Belgravia"
-               defaultValue={listing.location}
                inputProps={{ minLength: 5, maxLength: 40 }}
                required
                fullWidth
@@ -212,7 +213,6 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
                label="Nearest Institution"
                name="nearest_to"
                placeholder="e.g University of Zimbabwe"
-               defaultValue={listing.nearest_to}
                inputProps={{ minLength: 2, maxLength: 40 }}
                required
                fullWidth
@@ -226,9 +226,7 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
                   label="Type of Accomodation"
                   name="accomodation_type"
                   value={housingType}
-                  onChange={(e) =>
-                     setHousingType(e.target.value as "boarding" | "house" | "cottage" | "apartment" | "other")
-                  }
+                  onChange={(e) => setHousingType(e.target.value)}
                   fullWidth
                   sx={{ borderRadius: "20px" }}
                >
@@ -245,7 +243,6 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
                label="Walking Distance - km"
                name="distance"
                type="number"
-               defaultValue={listing.distance}
                inputProps={{ minLength: 5, maxLength: 30 }}
                required
                fullWidth
@@ -262,7 +259,6 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
                label="Description"
                name="description"
                placeholder="Give details about the property, services offered, rooms available etc"
-               defaultValue={listing.description}
                inputProps={{ minLength: 5, maxLength: 500 }}
                rows={10}
                multiline
@@ -289,7 +285,7 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
                   }}
                >
                   <WarningAmberRounded fontSize="large" color="inherit" sx={{ mr: 1 }} />
-                  Please make sure you did not leave any blank fields!
+                  Please make sure you have entered all required details and uploaded images!
                </Typography>
             )}
 

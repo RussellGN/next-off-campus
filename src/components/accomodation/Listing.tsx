@@ -5,14 +5,11 @@ import {
    DirectionsWalk,
 } from "@mui/icons-material";
 import { Box, Button, Grid, Paper, Typography } from "@mui/material";
-// import { listings } from "@/data/listings";
 import { ListingInterface } from "@/interfaces";
-import { AspectContainedImage } from "../AspectRatioContainer";
 import { capitalize } from "@/lib/utils";
 import Link from "next/link";
 import ListerOptions from "./ListerOptions";
 import ViewCountOrLister from "./ViewCountOrLister";
-import React from "react";
 import AspectContainedNextImage from "../AspectContainedNextImage";
 
 export default function Listing({ listing }: { listing: ListingInterface }) {
@@ -28,49 +25,6 @@ export default function Listing({ listing }: { listing: ListingInterface }) {
       >
          <Grid container alignItems="center">
             <Grid item xs={12} md={4}>
-               {/* <Box
-                  sx={{
-                     borderRadius: "10px",
-                     height: "100%",
-                     overflow: "hidden",
-                     display: "grid",
-                     gridTemplateColumns: "1fr 1fr",
-                     gridTemplateRows: "1fr 1fr 1fr",
-                  }}
-               >
-                  <div style={{ gridColumn: "span 2", gridRow: "span 2" }}>
-                     <AspectContainedImage
-                        src={listing.images[0].image}
-                        alt={listing.title}
-                        style={{
-                           borderRadius: 0,
-                           border: "solid thin transparent",
-                        }}
-                     />
-                  </div>
-
-                  <div>
-                     <AspectContainedImage
-                        src={listing.images[1].image}
-                        alt={listing.title}
-                        style={{
-                           borderRadius: 0,
-                           border: "solid thin transparent",
-                        }}
-                     />
-                  </div>
-
-                  <div>
-                     <AspectContainedImage
-                        src={listing.images[2].image}
-                        alt={listing.title}
-                        style={{
-                           borderRadius: 0,
-                           border: "solid thin transparent",
-                        }}
-                     />
-                  </div>
-               </Box> */}
                <Box
                   sx={{
                      borderRadius: "10px",
@@ -86,6 +40,7 @@ export default function Listing({ listing }: { listing: ListingInterface }) {
                         src={listing.images[0].image}
                         alt={listing.title}
                         quality={100}
+                        priority
                         sx={{
                            borderRadius: 0,
                            border: "solid thin transparent",
@@ -201,7 +156,7 @@ export default function Listing({ listing }: { listing: ListingInterface }) {
                         >
                            View
                         </Button>
-                        <ListerOptions listingtitle={listing.title} listingSlug={listing.slug} />
+                        <ListerOptions listingTitle={listing.title} listingSlug={listing.slug} />
                      </span>
 
                      <span>

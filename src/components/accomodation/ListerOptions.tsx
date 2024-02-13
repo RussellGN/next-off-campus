@@ -1,63 +1,47 @@
 "use client";
 
-import { getCookie } from "@/lib/utils";
 import { DeleteOutlined, Edit } from "@mui/icons-material";
-import {
-   Button,
-   Dialog,
-   DialogActions,
-   DialogContent,
-   DialogContentText,
-   DialogTitle,
-   IconButton,
-} from "@mui/material";
+import { IconButton } from "@mui/material";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import CustomDialog from "../CustomDialog";
+import { deleteListingAction } from "@/actions";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 
 export default function ListerOptions({
-   listingtitle,
+   listingTitle,
    listingSlug,
 }: {
-   listingtitle: string;
+   listingTitle: string;
    listingSlug: string;
 }) {
-   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
    const pathname = usePathname();
 
-   function confirmDelete() {
-      async function deleteListing(listingSlug: string) {
-         const token = getCookie("token");
-         if (!token) throw new Error("You do not have the permissions to delete this listing");
-         const res = await fetch(`/api/listings/${listingSlug}`, {
-            method: "DELETE",
-            headers: {
-               Authorization: `Token ${token}`,
-            },
-         });
+   const { mutateAsync: deleteListingMutation } = useMutation({
+      mutationFn: async () => deleteListingAction(listingSlug),
+      onSuccess: ({ message }) => {
+         console.log(message);
+         closeDeleteDialog();
+      },
+   });
 
-         if (!res.ok) throw new Error("failed to delete listing");
-
-         const data = (await res.json()) as { message: string };
-      }
-
-      deleteListing(listingSlug);
-
-      alert("deleted listing with slug: " + listingSlug);
-      hideDeleteDialog();
-   }
-
-   const showDeleteDialog = () => setOpenDeleteDialog(true);
-   const hideDeleteDialog = () => setOpenDeleteDialog(false);
+   const openDeleteDialog = () => setShowDeleteDialog(true);
+   const closeDeleteDialog = () => setShowDeleteDialog(false);
 
    if (pathname.includes("/profile"))
       return (
          <>
-            <DeleteDialog
-               {...{ openDeleteDialog, hideDeleteDialog, confirmDelete, listingtitle }}
+            <CustomDialog
+               title="Delete confirmation"
+               message={`Are you sure you want to delete the listing titled "${listingTitle}"?`}
+               confirm={async () => await deleteListingMutation()}
+               show={showDeleteDialog}
+               closeDialog={closeDeleteDialog}
             />
 
-            <IconButton onClick={showDeleteDialog} size="small" sx={{ ml: 1 }}>
+            <IconButton onClick={openDeleteDialog} size="small" sx={{ ml: 1 }}>
                <DeleteOutlined />
             </IconButton>
             <IconButton component={Link} href={"/listing-form/" + listingSlug} size="small">
@@ -65,42 +49,4 @@ export default function ListerOptions({
             </IconButton>
          </>
       );
-}
-
-function DeleteDialog({
-   openDeleteDialog,
-   hideDeleteDialog,
-   listingtitle,
-   confirmDelete,
-}: {
-   openDeleteDialog: boolean;
-   hideDeleteDialog: () => void;
-   listingtitle: string;
-   confirmDelete: () => void;
-}) {
-   return (
-      <Dialog
-         open={openDeleteDialog}
-         onClose={hideDeleteDialog}
-         aria-labelledby="logout-dialog-title"
-         aria-describedby="logout-dialog-description"
-         maxWidth="xs"
-         sx={{ textAlign: "center" }}
-      >
-         <DialogTitle noWrap id="logout-dialog-title" sx={{ pt: 3 }}>
-            Delete Confirmation
-         </DialogTitle>
-         <DialogContent>
-            <DialogContentText id="logout-dialog-description">
-               Are you sure you want to delete listing with title: "{listingtitle}" ?
-            </DialogContentText>
-         </DialogContent>
-         <DialogActions sx={{ justifyContent: "center", pb: 3 }}>
-            <Button onClick={hideDeleteDialog}>Cancel</Button>
-            <Button variant="outlined" color="secondary" onClick={confirmDelete}>
-               Yes
-            </Button>
-         </DialogActions>
-      </Dialog>
-   );
 }

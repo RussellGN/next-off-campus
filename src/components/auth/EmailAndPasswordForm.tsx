@@ -2,14 +2,14 @@ import { TextField } from "@mui/material";
 
 export default function EmailAndPasswordForm() {
    return (
-      <>
+      <div className="flex flex-col gap-4 py-4">
          <TextField
             size="small"
             label="Email"
             name="email"
             type="email"
             placeholder="example@example.com"
-            required
+            // required
             fullWidth
          />
 
@@ -23,9 +23,9 @@ export default function EmailAndPasswordForm() {
                minLength: 8,
                maxLength: 20,
             }}
-            required
+            // required
             fullWidth
          />
-      </>
+      </div>
    );
 }

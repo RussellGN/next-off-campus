@@ -1,11 +1,7 @@
 import { Link as MuiLink, Grid, Typography, Button } from "@mui/material";
 import Link from "next/link";
 
-export default function LoginSignupPromptAndFinishBtn({
-   currentPage,
-}: {
-   currentPage: "login" | "signup";
-}) {
+export default function LoginSignupPromptAndFinishBtn({ currentPage }: { currentPage: "login" | "signup" }) {
    return (
       <Grid
          container
@@ -19,10 +15,7 @@ export default function LoginSignupPromptAndFinishBtn({
             <Typography variant="body2">
                {currentPage === "login" ? "Don't have an account?" : "Already have an account?"}
                <br />
-               <MuiLink
-                  component={Link}
-                  href={`/auth/${currentPage === "login" ? "signup" : "login"}`}
-               >
+               <MuiLink component={Link} href={`/auth/${currentPage === "login" ? "signup" : "login"}`}>
                   {currentPage === "login" ? "Signup" : "Login"}
                </MuiLink>
             </Typography>

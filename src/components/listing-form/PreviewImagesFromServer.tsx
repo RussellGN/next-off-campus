@@ -2,16 +2,8 @@
 
 import React, { memo, useState } from "react";
 import { AspectContainedImage } from "../AspectRatioContainer";
-import {
-   Button,
-   Dialog,
-   DialogActions,
-   DialogContent,
-   DialogContentText,
-   DialogTitle,
-   IconButton,
-} from "@mui/material";
-import { DeleteOutlined } from "@mui/icons-material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton } from "@mui/material";
+import { Delete, DeleteOutlined } from "@mui/icons-material";
 import AspectContainedNextImage from "../AspectContainedNextImage";
 
 export default memo(
@@ -37,9 +29,7 @@ export default memo(
 
       return (
          <>
-            <RemoveDialog
-               {...{ openRemoveDialog, hideRemoveDialog, confirmRemove, cancelRemove }}
-            />
+            <RemoveDialog {...{ openRemoveDialog, hideRemoveDialog, confirmRemove, cancelRemove }} />
 
             <input
                type="hidden"
@@ -58,11 +48,7 @@ export default memo(
                if (shouldReturn)
                   return (
                      <div className="relative" key={"img-" + img.id}>
-                        <AspectContainedNextImage
-                           src={img.image}
-                           alt="preview image"
-                           sx={{ borderRadius: "10px", border: "solid transparent" }}
-                        />
+                        <AspectContainedNextImage src={img.image} alt="preview image" sx={{ borderRadius: "5px" }} />
                         <IconButton
                            onClick={() => {
                               setLatestVictim(img.id);
@@ -71,6 +57,7 @@ export default memo(
                            color="error"
                            size="small"
                            sx={{
+                              transform: "scale(0.8)",
                               backgroundColor: "error.main",
                               color: "white !important",
                               position: "absolute",
@@ -82,38 +69,9 @@ export default memo(
                               },
                            }}
                         >
-                           <DeleteOutlined />
+                           <Delete />
                         </IconButton>
                      </div>
-                     // <AspectContainedImage
-                     //    key={"img-" + img.id}
-                     //    src={img.image}
-                     //    alt="preview image"
-                     //    style={{ borderRadius: "10px", border: "solid transparent" }}
-                     //    containerStyles={{ position: "relative" }}
-                     // >
-                     //    <IconButton
-                     //       onClick={() => {
-                     //          setLatestVictim(img.id);
-                     //          showRemoveDialog();
-                     //       }}
-                     //       color="error"
-                     //       size="small"
-                     //       sx={{
-                     //          backgroundColor: "error.main",
-                     //          color: "white !important",
-                     //          position: "absolute",
-                     //          top: "-5px",
-                     //          right: "-5px",
-                     //          "&:hover": {
-                     //             backgroundColor: "error.light",
-                     //             color: "white !important",
-                     //          },
-                     //       }}
-                     //    >
-                     //       <DeleteOutlined />
-                     //    </IconButton>
-                     // </AspectContainedImage>
                   );
             })}
          </>

@@ -2,29 +2,11 @@
 
 import { ArrowUpward, KeyboardDoubleArrowRight } from "@mui/icons-material";
 import { Box, Container, IconButton, Link as MuiLink, Typography } from "@mui/material";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { ListerInterface, ListingInterface } from "@/interfaces";
-import { useEffect, useState } from "react";
+import useLister from "@/hooks/useLister";
 
 export default function Footer() {
-   const [lister, setLister] = useState<ListerInterface | null>(null);
-   const pathname = usePathname();
-
-   useEffect(() => {
-      async function getAndSetLister() {
-         const res = await fetch("/api/auth");
-         if (!res.ok) throw new Error("failed to fetch lister");
-
-         const data = (await res.json()) as {
-            lister: ListerInterface | null;
-            lister_listings?: ListingInterface[];
-         };
-         setLister(data.lister);
-      }
-
-      getAndSetLister();
-   }, [pathname]);
+   const { lister, isPending } = useLister();
 
    return (
       <Container>
@@ -38,7 +20,7 @@ export default function Footer() {
             }}
          >
             <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
-               {lister ? (
+               {isPending || lister ? (
                   ""
                ) : (
                   <MuiLink

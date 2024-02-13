@@ -37,7 +37,7 @@ export default function Sidebar({
       position: "sticky",
       top: "90px",
       borderRadius: "10px",
-      height: "70vh",
+      height: "75vh",
       boxShadow: { md: theme.shadows[4] },
    };
 

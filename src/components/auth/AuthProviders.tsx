@@ -1,12 +1,15 @@
+"use client";
+
+import { loginAction } from "@/actions";
 import { Apple, Google } from "@mui/icons-material";
 import { Box, Button } from "@mui/material";
-import { useRouter } from "next/navigation";
 
 export default function AuthProviders() {
-   const router = useRouter();
-
-   function providerLogin() {
-      router.push("/profile");
+   async function providerLogin() {
+      const formData = new FormData();
+      formData.append("email", "russ@gmail.com");
+      formData.append("password", "123456789");
+      await loginAction(formData);
    }
 
    return (

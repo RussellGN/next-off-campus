@@ -5,6 +5,7 @@ const baseURL = "http://127.0.0.1:8000";
 const apiURL = baseURL + "/api";
 
 export async function getListings() {
+   console.log("refetching", Date.now());
    const res = await fetch(`${apiURL}/listings/`, { next: { tags: [fetchTags.listings] } });
 
    if (!res.ok) throw new Error(`failed to fetch listings: ${res.statusText}`);

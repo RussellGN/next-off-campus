@@ -1,23 +1,38 @@
-import { Box } from "@mui/material";
+"use client";
+
+import { Box, CircularProgress } from "@mui/material";
 import Pagination from "./Pagination";
 import Listing from "./Listing";
-import { getListings } from "@/lib/API_V2";
 import { ListingInterface } from "@/interfaces";
+import { getListingsAction } from "@/actions";
+import useListings from "@/hooks/useListings";
 
-export default async function Listings({
-   listerListings,
-}: {
-   listerListings?: ListingInterface[];
-}) {
-   const listings = listerListings ? listerListings : await getListings();
+export default function Listings() {
+   const { listings, isPending, error, isError } = useListings();
+
+   if (isPending) {
+      return (
+         <div className="min-h-[50vh] flex items-center justify-center">
+            <CircularProgress />
+         </div>
+      );
+   }
+
+   if (isError) {
+      return (
+         <p className="text-center mx-auto max-w-prose">
+            There was an error <br /> <strong>{error?.message}</strong>
+         </p>
+      );
+   }
 
    return (
-      <Box sx={{ minHeight: "50vh" }}>
-         {listings.map((listing) => (
+      <div className="min-h-[50vh]">
+         {listings?.map((listing) => (
             <Listing key={listing.id} listing={listing} />
          ))}
 
          <Pagination pageCount={3} />
-      </Box>
+      </div>
    );
 }

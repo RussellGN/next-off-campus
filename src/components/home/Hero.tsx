@@ -1,12 +1,7 @@
-import { Box, Button, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import Link from "next/link";
 import { heroListings } from "@/data/heroListings";
-import { SimpleListingInterface } from "@/interfaces";
-import Image from "next/image";
-import AspectRatioContainer from "@/components/AspectRatioContainer";
-import { capitalize } from "@/lib/utils";
-import { PlaceOutlined } from "@mui/icons-material";
-import AspectContainedNextImage from "../AspectContainedNextImage";
+import HeroListingCard from "./HeroListingCard";
 
 export default function Hero() {
    return (
@@ -20,7 +15,6 @@ export default function Hero() {
             mt: 2.5,
             px: { xs: 1, sm: 4 },
             py: 6,
-            // backgroundColor: "secondary.light",
             backgroundColor: "background.paper",
             border: "solid thin",
             borderColor: "divider",
@@ -46,8 +40,6 @@ export default function Hero() {
                   ? No Problem
                </Typography>
                <Typography sx={{ maxWidth: "20rem", my: 2, mx: { xs: "auto", md: "0" } }}>
-                  {/* Browse through countless accomodation listings available exclusively to college
-                  students in Zimbabwe */}
                   Find off-campus accomodation available exclusively to college students <br />
                   in Zimbabwe
                </Typography>
@@ -62,18 +54,7 @@ export default function Hero() {
          <Grid item xs={12} md={5} sx={{ order: { xs: 1, md: 2 } }}>
             <Box sx={{ position: "relative" }}>
                <Box
-                  // sx={{
-                  //    display: { xs: "none", md: "block" },
-                  //    width: "15rem",
-                  //    height: "200rem",
-                  //    position: "absolute",
-                  //    right: "calc(50% - 7.5rem)",
-                  //    top: "-100rem",
-                  //    backgroundColor: "primary.main",
-                  //    transform: "rotate(-20deg)",
-                  // }}
                   sx={{
-                     // display: { xs: "none", md: "block" },
                      width: "15rem",
                      height: "200rem",
                      position: "absolute",
@@ -101,126 +82,3 @@ export default function Hero() {
       </Grid>
    );
 }
-
-function HeroListingCard({ listing, index }: { listing: SimpleListingInterface; index: number }) {
-   return (
-      <Paper
-         elevation={2}
-         sx={{
-            width: "33%",
-            p: 0.2,
-            borderRadius: "15px",
-            backgroundColor: "white",
-            // boxShadow: "1px 1px 4px grey",
-            transform: index === 1 ? "scale(1.2)" : "",
-         }}
-      >
-         <AspectContainedNextImage
-            priority
-            src={listing.coverImage}
-            quality={100}
-            alt={listing.title}
-            aspectRatio="3 / 2"
-            sx={{
-               borderRadius: "15px 15px 5px 5px",
-            }}
-         />
-
-         <Box sx={{ p: 1, pb: 0, textAlign: "center" }}>
-            <Typography fontWeight="bold" noWrap variant="caption" component="div">
-               {capitalize(listing.title)}
-            </Typography>
-
-            <Typography noWrap variant="caption" component="div" sx={{ my: 0.5 }}>
-               <PlaceOutlined fontSize="inherit" sx={{ mt: -0.3, mr: 0.3 }} />
-               {listing.location}
-            </Typography>
-
-            <Typography
-               noWrap
-               // variant="caption"
-               component="div"
-               sx={{
-                  my: 1,
-                  // backgroundColor: "secondary.light",
-                  backgroundColor: "divider",
-                  fontSize: "60% !important",
-                  width: "fit-content",
-                  mx: "auto",
-                  // p: "0.5px 3px",
-                  // borderRadius: "2px",
-                  p: "1px 5px",
-                  borderRadius: "6px",
-               }}
-            >
-               $ {listing.rent}
-            </Typography>
-         </Box>
-      </Paper>
-   );
-}
-
-// function HeroListingCard({ listing, index }: { listing: SimpleListingInterface; index: number }) {
-//    return (
-//       <Paper
-//          elevation={2}
-//          sx={{
-//             width: "33%",
-//             p: 0.2,
-//             borderRadius: "15px",
-//             backgroundColor: "white",
-//             // boxShadow: "1px 1px 4px grey",
-//             transform: index === 1 ? "scale(1.2)" : "",
-//          }}
-//       >
-//          <AspectRatioContainer ratio="3/2">
-//             <Image
-//                priority
-//                src={listing.coverImage}
-//                quality={100}
-//                height={80}
-//                width={100}
-//                alt={listing.title}
-//                style={{
-//                   width: "100%",
-//                   height: "100%",
-//                   objectFit: "cover",
-//                   borderRadius: "15px 15px 5px 5px",
-//                   // borderRadius: "15px 15px 0 0",
-//                }}
-//             />
-//          </AspectRatioContainer>
-
-//          <Box sx={{ p: 1, pb: 0, textAlign: "center" }}>
-//             <Typography fontWeight="bold" noWrap variant="caption" component="div">
-//                {capitalize(listing.title)}
-//             </Typography>
-
-//             <Typography noWrap variant="caption" component="div" sx={{ my: 0.5 }}>
-//                <PlaceOutlined fontSize="inherit" sx={{ mt: -0.3, mr: 0.3 }} />
-//                {listing.location}
-//             </Typography>
-
-//             <Typography
-//                noWrap
-//                // variant="caption"
-//                component="div"
-//                sx={{
-//                   my: 1,
-//                   // backgroundColor: "secondary.light",
-//                   backgroundColor: "divider",
-//                   fontSize: "60% !important",
-//                   width: "fit-content",
-//                   mx: "auto",
-//                   // p: "0.5px 3px",
-//                   // borderRadius: "2px",
-//                   p: "1px 5px",
-//                   borderRadius: "6px",
-//                }}
-//             >
-//                $ {listing.rent}
-//             </Typography>
-//          </Box>
-//       </Paper>
-//    );
-// }

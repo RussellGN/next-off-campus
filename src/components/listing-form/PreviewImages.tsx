@@ -14,7 +14,7 @@ export default memo(
                      key={"img-" + index}
                      src={imgUrl}
                      alt="preview image"
-                     sx={{ borderRadius: "10px", border: "solid transparent" }}
+                     sx={{ borderRadius: "5px" }}
                   />
                );
             })}

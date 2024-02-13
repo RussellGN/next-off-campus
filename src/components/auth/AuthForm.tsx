@@ -1,52 +1,41 @@
-import { useRouter } from "next/navigation";
-import { ReactNode } from "react";
-import LoadingContent from "./LoadingContent";
-import ErrorContent from "./ErrorContent";
+"use client";
+
+import { FormEvent, ReactNode } from "react";
 import { Button, Typography } from "@mui/material";
 import { capitalize } from "@/lib/utils";
 import { HomeOutlined } from "@mui/icons-material";
+import Link from "next/link";
+import { loginAction, signupAction, updateListerAction } from "@/actions";
 
-export default function AuthForm({
-   submitting,
-   errorMessage,
-   children,
-   title,
-   handleSubmit,
-}: {
-   submitting: boolean;
-   errorMessage: string;
+type AuthFormTypes = {
+   formType: "login" | "signup" | "editing";
    children: ReactNode;
-   title: string;
-   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-}) {
-   const router = useRouter();
+   submitHandler?: (e: FormEvent<HTMLFormElement>) => void;
+};
 
-   function goHome() {
-      router.push("/");
+export default function AuthForm({ formType, children, submitHandler }: AuthFormTypes) {
+   const action = formType === "login" ? loginAction : formType === "signup" ? signupAction : updateListerAction;
+
+   async function defaultSubmit(e: FormEvent<HTMLFormElement>) {
+      e.preventDefault();
+      const formData = new FormData(e.currentTarget);
+      await action(formData);
    }
 
-   if (errorMessage) return <ErrorContent errorMessage={errorMessage} />;
-   if (submitting) return <LoadingContent />;
+   const onSubmit = submitHandler ? submitHandler : defaultSubmit;
 
    return (
-      <form
-         onSubmit={handleSubmit}
-         className="flex flex-col justify-center items-center gap-6 w-full"
-         // key={title + "-form"}
-      >
+      <form onSubmit={onSubmit} className="flex flex-col justify-center items-center gap-6 w-full">
          <div className="w-full">
-            <Button
-               color="secondary"
-               variant="outlined"
-               startIcon={<HomeOutlined />}
-               onClick={goHome}
-            >
+            <Button component={Link} href="/" color="secondary" variant="outlined" startIcon={<HomeOutlined />}>
                Home
             </Button>
          </div>
+
          <Typography variant="h6" textAlign="center">
-            {capitalize(title)}
+            {capitalize(formType)}
          </Typography>
+
          {children}
       </form>
    );

@@ -1,3 +1,6 @@
+import axios from "axios";
+import { redirect } from "next/navigation";
+
 export function capitalize(text: string): string {
    let finalText = "";
    let words = text.split(" ");
@@ -62,9 +65,29 @@ export function getCookie(cname: string) {
             return c.substring(name.length, c.length);
          }
       }
-      return "";
+      return null;
    } catch (error) {
       console.log("error getting cookie:", error);
-      return "";
+      return null;
+   }
+}
+
+export const axiosClient = axios.create({
+   baseURL: "http://127.0.0.1:8000/api/",
+});
+
+export function notAuthenticated() {
+   const token = getCookie("token");
+   if (token) {
+      console.log("already logged in, re-routing...");
+      redirect("/profile");
+   }
+}
+
+export function onlyAuthenticated() {
+   const token = getCookie("token");
+   if (!token) {
+      console.log("login required, re-routing...");
+      redirect("/auth/login");
    }
 }

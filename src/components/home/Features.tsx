@@ -24,8 +24,8 @@ export default function features() {
             Do you have accomodation to advertise? Create a free account and upload your listings.
          </Typography>
          <div>
-            <Button component={Link} href="/signup">
-               Signup
+            <Button component={Link} href="/auth/signup">
+               Get Listed
             </Button>
          </div>
       </Box>

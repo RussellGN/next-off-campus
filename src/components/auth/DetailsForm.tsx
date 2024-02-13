@@ -1,23 +1,9 @@
 import { ListerInterface } from "@/interfaces";
-import {
-   Box,
-   Button,
-   FormControlLabel,
-   Radio,
-   RadioGroup,
-   TextField,
-   Typography,
-} from "@mui/material";
+import { Box, Button, FormControlLabel, Radio, RadioGroup, TextField, Typography } from "@mui/material";
 
-export default function DetailsForm({
-   editing = false,
-   lister,
-}: {
-   editing?: boolean;
-   lister?: ListerInterface;
-}) {
+export default function DetailsForm({ editing = false, lister }: { editing?: boolean; lister?: ListerInterface }) {
    return (
-      <>
+      <div className="flex flex-col gap-4 py-4">
          <Typography variant="body2" textAlign="center">
             {editing
                ? "Details are included in all your listings."
@@ -34,7 +20,7 @@ export default function DetailsForm({
                minLength: 2,
                maxLength: 30,
             }}
-            required
+            // required
             fullWidth
          />
 
@@ -50,7 +36,7 @@ export default function DetailsForm({
                minLength: 5,
                maxLength: 100,
             }}
-            required
+            // required
             fullWidth
          />
 
@@ -64,6 +50,6 @@ export default function DetailsForm({
          <Box sx={{ textAlign: "right", p: 1 }}>
             <Button type="submit">Finish</Button>
          </Box>
-      </>
+      </div>
    );
 }
