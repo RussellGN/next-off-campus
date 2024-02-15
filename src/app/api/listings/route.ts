@@ -6,7 +6,7 @@ const apiURL = baseURL + "/api";
 
 export async function GET(request: NextRequest) {
    const queryString = request.nextUrl.searchParams.toString();
-   const res = await fetch(`${apiURL}/listings?${queryString}/`, {});
+   const res = await fetch(`${apiURL}/listings?${queryString}`, {});
 
    if (!res.ok) throw new Error(`failed to fetch listings, search params were "${queryString}": ${res.statusText}`);
 

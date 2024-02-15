@@ -1,17 +1,7 @@
 "use client";
 
 import { Tune, ArrowDownward, ArrowUpward, Close } from "@mui/icons-material";
-import {
-   Box,
-   Button,
-   FormControl,
-   IconButton,
-   InputLabel,
-   MenuItem,
-   Select,
-   TextField,
-   Typography,
-} from "@mui/material";
+import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import useSearchAndSort from "@/hooks/useSearchAndSort";
 import useIsMobile from "@/hooks/useIsMobile";
 import { usePathname, useRouter } from "next/navigation";
@@ -87,7 +77,7 @@ export default function SearchAndSort({
                   id="sort-select"
                   label="Sort"
                   name="sort"
-                  value={sortValue || "popularity"}
+                  value={sortValue || "-date"}
                   onChange={handleSortChange}
                   autoWidth
                   sx={{
@@ -96,18 +86,18 @@ export default function SearchAndSort({
                      backgroundColor: "background.paper",
                   }}
                >
-                  <MenuItem value="popularity">Popularity</MenuItem>
-                  <MenuItem value="date-des">
+                  <MenuItem value="-view_count">Popularity</MenuItem>
+                  <MenuItem value="-date">
                      Date <ArrowDownward fontSize="small" color="inherit" sx={{ ml: 0.2 }} />
                   </MenuItem>
-                  <MenuItem value="date-asc">
+                  <MenuItem value="date">
                      Date <ArrowUpward fontSize="small" color="inherit" sx={{ ml: 0.2 }} />
                   </MenuItem>
-                  <MenuItem value="rent-ascending">
+                  <MenuItem value="rent">
                      Rent
                      <ArrowUpward fontSize="small" color="inherit" sx={{ ml: 0.2 }} />
                   </MenuItem>
-                  <MenuItem value="rent-descending">
+                  <MenuItem value="-rent">
                      Rent
                      <ArrowDownward fontSize="small" color="inherit" sx={{ ml: 0.2 }} />
                   </MenuItem>

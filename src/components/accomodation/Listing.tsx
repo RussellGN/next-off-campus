@@ -1,9 +1,4 @@
-import {
-   KeyboardArrowRight,
-   MonetizationOn,
-   PlaceOutlined,
-   DirectionsWalk,
-} from "@mui/icons-material";
+import { KeyboardArrowRight, MonetizationOn, PlaceOutlined, DirectionsWalk, HouseOutlined } from "@mui/icons-material";
 import { Box, Button, Grid, Paper, Typography } from "@mui/material";
 import { ListingInterface } from "@/interfaces";
 import { capitalize } from "@/lib/utils";
@@ -122,6 +117,19 @@ export default function Listing({ listing }: { listing: ListingInterface }) {
                         gap: 0.8,
                      }}
                   >
+                     <HouseOutlined fontSize="inherit" />
+                     {listing.accomodation_type}
+                  </Typography>
+
+                  <Typography
+                     variant="body2"
+                     sx={{
+                        mb: 1,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 0.8,
+                     }}
+                  >
                      <MonetizationOn fontSize="inherit" />
                      {listing.rent}
                   </Typography>
@@ -149,21 +157,14 @@ export default function Listing({ listing }: { listing: ListingInterface }) {
                      }}
                   >
                      <span>
-                        <Button
-                           component={Link}
-                           href={`/accomodation/${listing.slug}`}
-                           endIcon={<KeyboardArrowRight />}
-                        >
+                        <Button component={Link} href={`/accomodation/${listing.slug}`} endIcon={<KeyboardArrowRight />}>
                            View
                         </Button>
                         <ListerOptions listingTitle={listing.title} listingSlug={listing.slug} />
                      </span>
 
                      <span>
-                        <ViewCountOrLister
-                           views={listing.view_count}
-                           username={listing.lister.username}
-                        />
+                        <ViewCountOrLister views={listing.view_count} username={listing.lister.username} />
                      </span>
                   </Box>
                </Box>

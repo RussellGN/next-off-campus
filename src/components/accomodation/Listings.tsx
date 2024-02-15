@@ -8,7 +8,7 @@ import { getListingsAction } from "@/actions";
 import useListings from "@/hooks/useListings";
 
 export default function Listings() {
-   const { listings, isPending, error, isError } = useListings();
+   const { listings, isPending, error, isError, pageCount } = useListings();
 
    if (isPending) {
       return (
@@ -32,7 +32,7 @@ export default function Listings() {
             <Listing key={listing.id} listing={listing} />
          ))}
 
-         <Pagination pageCount={3} />
+         <Pagination pageCount={pageCount || 1} />
       </div>
    );
 }
