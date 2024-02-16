@@ -23,6 +23,7 @@ export default function features() {
          <Typography className="max-w-md" sx={{ my: 2, px: 2 }}>
             Do you have accomodation to advertise? Create a free account and upload your listings.
          </Typography>
+
          <div>
             <Button component={Link} href="/auth/signup">
                Get Listed

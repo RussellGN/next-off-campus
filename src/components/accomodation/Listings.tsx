@@ -32,7 +32,7 @@ export default function Listings() {
             <Listing key={listing.id} listing={listing} />
          ))}
 
-         <Pagination pageCount={pageCount || 1} />
+         {listings?.length ? <Pagination pageCount={pageCount || 1} /> : <p className="text-center">No listings found</p>}
       </div>
    );
 }

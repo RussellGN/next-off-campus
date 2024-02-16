@@ -90,7 +90,12 @@ export default function Listing({ listing }: { listing: ListingInterface }) {
                            borderRadius: "5px",
                         }}
                      >
-                        {new Date(listing.date).toLocaleDateString()}
+                        {new Date(listing.date).toLocaleDateString("en-US", {
+                           day: "numeric",
+                           month: "short",
+                           year: "numeric",
+                        })}
+                        {/* {new Date(listing.date).toLocaleDateString()} */}
                         {/* {listing.date} */}
                      </Typography>
                   </Box>

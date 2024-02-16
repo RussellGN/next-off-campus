@@ -5,6 +5,7 @@ import { Box, Button, Grid } from "@mui/material";
 import { useTheme, Typography } from "@mui/material";
 import {
    PlaceOutlined,
+   HouseOutlined,
    DirectionsWalk,
    MonetizationOn,
    KeyboardArrowLeft,
@@ -58,20 +59,12 @@ export default function DetailedView({
                         }}
                      >
                         <StyledButton
-                           onClick={() =>
-                              setImageOnView((prev) =>
-                                 prev === 0 ? listing.images.length - 1 : prev - 1
-                              )
-                           }
+                           onClick={() => setImageOnView((prev) => (prev === 0 ? listing.images.length - 1 : prev - 1))}
                         >
                            <KeyboardArrowLeft />
                         </StyledButton>
                         <StyledButton
-                           onClick={() =>
-                              setImageOnView((prev) =>
-                                 prev === listing.images.length - 1 ? 0 : prev + 1
-                              )
-                           }
+                           onClick={() => setImageOnView((prev) => (prev === listing.images.length - 1 ? 0 : prev + 1))}
                         >
                            <KeyboardArrowRight />
                         </StyledButton>
@@ -129,13 +122,7 @@ export default function DetailedView({
                      gap: 2,
                   }}
                >
-                  <Grid
-                     container
-                     spacing={0}
-                     gap={2}
-                     alignItems="center"
-                     justifyContent="space-between"
-                  >
+                  <Grid container spacing={0} gap={2} alignItems="center" justifyContent="space-between">
                      <Grid item xs zeroMinWidth>
                         <Typography variant="h6" noWrap>
                            {capitalize(listing.title)}
@@ -143,7 +130,12 @@ export default function DetailedView({
                      </Grid>
                      <Grid item xs="auto">
                         <Typography variant="caption" color="primary">
-                           {new Date(listing.date).toLocaleDateString()}
+                           {/* {new Date(listing.date).toLocaleDateString()} */}
+                           {new Date(listing.date).toLocaleDateString("en-US", {
+                              day: "numeric",
+                              month: "short",
+                              year: "numeric",
+                           })}
                         </Typography>
                      </Grid>
                   </Grid>
@@ -152,6 +144,11 @@ export default function DetailedView({
                      <Typography sx={{ mb: 1.5 }}>
                         <PlaceOutlined fontSize="small" sx={{ mr: 0.8, mt: -0.2 }} />
                         {listing.location}
+                     </Typography>
+
+                     <Typography sx={{ mb: 1.5 }}>
+                        <HouseOutlined fontSize="small" sx={{ mr: 0.8, mt: -0.2 }} />
+                        {listing.accomodation_type}
                      </Typography>
 
                      <Typography sx={{ mb: 1.5 }}>

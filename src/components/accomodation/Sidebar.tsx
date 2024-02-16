@@ -63,6 +63,8 @@ export default function Sidebar({
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
+                  position: "sticky",
+                  top: 0,
                }}
             >
                Filters
