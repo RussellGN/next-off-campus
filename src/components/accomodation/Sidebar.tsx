@@ -51,6 +51,7 @@ export default function Sidebar({
             display: { xs: showSidebar ? "block" : "none", md: "block" },
             overflowY: "auto",
             p: 2,
+            pt: 0,
             backgroundColor: "background.paper",
             ...{ ...(isMobile ? mobileStyles : desktopStyles) },
          }}
@@ -60,11 +61,14 @@ export default function Sidebar({
                variant="h6"
                sx={{
                   mb: 3,
+                  pt: 1,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
                   position: "sticky",
                   top: 0,
+                  backgroundColor: "background.paper",
+                  zIndex: 1,
                }}
             >
                Filters
