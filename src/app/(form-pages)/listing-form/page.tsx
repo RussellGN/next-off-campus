@@ -1,6 +1,5 @@
 "use client";
 
-import { ListingInterface } from "@/interfaces";
 import {
    Box,
    Button,
@@ -12,16 +11,7 @@ import {
    TextField,
    Typography,
 } from "@mui/material";
-import {
-   ArrowBack,
-   CheckCircle,
-   InfoOutlined,
-   KeyboardArrowRight,
-   Warning,
-   WarningAmberOutlined,
-   WarningAmberRounded,
-   WarningOutlined,
-} from "@mui/icons-material";
+import { ArrowBack, CheckCircle, InfoOutlined, KeyboardArrowRight, WarningAmberRounded } from "@mui/icons-material";
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { capitalize, wait } from "@/lib/utils";
 import PreviewImages from "@/components/listing-form/PreviewImages";
@@ -29,6 +19,7 @@ import { accomodationTypes, defaultAccomodationType } from "@/constants";
 import Link from "next/link";
 import { createListingAction } from "@/actions";
 import { ListingInterface } from "@/interfaces";
+
 const tabs = {
    images: "images",
    info: "info",
@@ -49,6 +40,12 @@ export default function Page() {
    }
 
    function onImageInputChange(e: ChangeEvent<HTMLInputElement>) {
+      if (e.target.files) {
+         if (e.target.files.length < 3 || e.target.files.length > 30) {
+            alert("Please select 3-30 images");
+            e.target.value = "";
+         }
+      }
       setImages(e.currentTarget.files?.length ? Array.from(e.currentTarget.files) : []);
    }
 
@@ -141,8 +138,6 @@ export default function Page() {
                name="images"
                type="file"
                multiple
-               min={3}
-               max={15}
                accept="image/png,image/jpg,image/jpeg"
                onChange={onImageInputChange}
                required
@@ -243,7 +238,7 @@ export default function Page() {
                label="Walking Distance - km"
                name="distance"
                type="number"
-               inputProps={{ minLength: 5, maxLength: 30 }}
+               inputProps={{ min: 5, max: 30 }}
                required
                fullWidth
             />
@@ -285,7 +280,7 @@ export default function Page() {
                   }}
                >
                   <WarningAmberRounded fontSize="large" color="inherit" sx={{ mr: 1 }} />
-                  Please make sure you have entered all required details and uploaded images!
+                  Please make sure you have entered all details appropriatley!
                </Typography>
             )}
 

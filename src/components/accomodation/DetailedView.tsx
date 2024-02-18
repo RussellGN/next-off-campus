@@ -211,7 +211,7 @@ export default function DetailedView({
             </Grid>
          </Grid>
 
-         <RelatedListings related_listings={related_listings} />
+         <RelatedListings lister={listing.lister.username} related_listings={related_listings} />
       </>
    );
 }

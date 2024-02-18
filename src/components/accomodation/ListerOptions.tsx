@@ -3,25 +3,22 @@
 import { DeleteOutlined, Edit } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import CustomDialog from "../CustomDialog";
 import { deleteListingAction } from "@/actions";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
-export default function ListerOptions({
-   listingTitle,
-   listingSlug,
-}: {
-   listingTitle: string;
-   listingSlug: string;
-}) {
+export default function ListerOptions({ listingTitle, listingSlug }: { listingTitle: string; listingSlug: string }) {
    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
    const pathname = usePathname();
+
+   const router = useRouter();
 
    const { mutateAsync: deleteListingMutation } = useMutation({
       mutationFn: async () => deleteListingAction(listingSlug),
       onSuccess: ({ message }) => {
+         router.refresh();
          console.log(message);
          closeDeleteDialog();
       },

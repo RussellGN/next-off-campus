@@ -44,6 +44,12 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
    }
 
    function onImageInputChange(e: ChangeEvent<HTMLInputElement>) {
+      if (e.target.files) {
+         if (e.target.files.length < 3 || e.target.files.length > 30) {
+            alert("Please select 3-30 images");
+            e.target.value = "";
+         }
+      }
       setImages(e.currentTarget.files?.length ? Array.from(e.currentTarget.files) : []);
    }
 
@@ -136,8 +142,6 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
                name="images"
                type="file"
                multiple
-               min={3}
-               max={15}
                accept="image/png,image/jpg,image/jpeg"
                onChange={onImageInputChange}
                required
@@ -246,7 +250,7 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
                name="distance"
                type="number"
                defaultValue={listing.distance}
-               inputProps={{ minLength: 5, maxLength: 30 }}
+               inputProps={{ min: 0, max: 100 }}
                required
                fullWidth
             />
@@ -289,7 +293,7 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
                   }}
                >
                   <WarningAmberRounded fontSize="large" color="inherit" sx={{ mr: 1 }} />
-                  Please make sure you did not leave any blank fields!
+                  Please make sure you have entered all details appropriatley!
                </Typography>
             )}
 

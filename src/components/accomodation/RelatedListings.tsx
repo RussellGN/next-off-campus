@@ -2,12 +2,19 @@ import { Box, Typography } from "@mui/material";
 import RelatedListing from "./RelatedListing";
 import { ListingInterface } from "@/interfaces";
 
-export default function RelatedListings({ related_listings }: { related_listings: ListingInterface[] }) {
+export default function RelatedListings({
+   lister,
+   related_listings,
+}: {
+   lister: string;
+   related_listings: ListingInterface[];
+}) {
    if (related_listings.length)
       return (
          <>
             <Typography variant="h6" sx={{ my: 3, textAlign: "center" }}>
-               Related
+               {/* Related */}
+               More from <span className="underline">{lister}</span>
             </Typography>
             <Box
                sx={{

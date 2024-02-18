@@ -24,6 +24,7 @@ export default function Signup() {
    const [step, setStep] = useState<1 | 2>(1);
    const [loading, setLoading] = useState(false);
    const router = useRouter();
+
    const goBack = () => router.back();
 
    async function handleSubmit(e: FormEvent<HTMLFormElement>) {

@@ -30,7 +30,7 @@ export default function Listing({ listing }: { listing: ListingInterface }) {
                      gridTemplateRows: "1fr 1fr 1fr",
                   }}
                >
-                  <div style={{ gridColumn: "span 2", gridRow: "span 2" }}>
+                  <div style={{ gridColumn: "span 2", gridRow: listing.images.length > 2 ? "span 2" : "span 3" }}>
                      <AspectContainedNextImage
                         src={listing.images[0].image}
                         alt={listing.title}
@@ -44,31 +44,37 @@ export default function Listing({ listing }: { listing: ListingInterface }) {
                      />
                   </div>
 
-                  <div>
-                     <AspectContainedNextImage
-                        src={listing.images[1].image}
-                        alt={listing.title}
-                        quality={100}
-                        sx={{
-                           borderRadius: 0,
-                           border: "solid thin transparent",
-                           backgroundColor: "divider",
-                        }}
-                     />
-                  </div>
+                  {listing.images.length > 2 ? (
+                     <>
+                        <div>
+                           <AspectContainedNextImage
+                              src={listing.images[1].image}
+                              alt={listing.title}
+                              quality={100}
+                              sx={{
+                                 borderRadius: 0,
+                                 border: "solid thin transparent",
+                                 backgroundColor: "divider",
+                              }}
+                           />
+                        </div>
 
-                  <div>
-                     <AspectContainedNextImage
-                        src={listing.images[2].image}
-                        alt={listing.title}
-                        quality={100}
-                        sx={{
-                           borderRadius: 0,
-                           border: "solid thin transparent",
-                           backgroundColor: "divider",
-                        }}
-                     />
-                  </div>
+                        <div>
+                           <AspectContainedNextImage
+                              src={listing.images[2].image}
+                              alt={listing.title}
+                              quality={100}
+                              sx={{
+                                 borderRadius: 0,
+                                 border: "solid thin transparent",
+                                 backgroundColor: "divider",
+                              }}
+                           />
+                        </div>
+                     </>
+                  ) : (
+                     ""
+                  )}
                </Box>
             </Grid>
 
