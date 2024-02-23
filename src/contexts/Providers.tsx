@@ -9,7 +9,7 @@ export default function Providers({ children }: PropsWithChildren) {
       // <AlertsProvider>
       <ReactQueryProvider>
          <AppRouterCacheProvider>
-            <MuiThemeProvider children={children} />
+            <MuiThemeProvider>{children}</MuiThemeProvider>
          </AppRouterCacheProvider>
       </ReactQueryProvider>
       // </AlertsProvider>

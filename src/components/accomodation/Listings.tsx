@@ -6,7 +6,7 @@ import Listing from "./Listing";
 import useListings from "@/hooks/useListings";
 import { ListerInterface } from "@/interfaces";
 
-export default function Listings({ lister }: { lister: ListerInterface }) {
+export default function Listings({ lister }: { lister?: ListerInterface }) {
    const { listings, isPending, error, isError, pageCount, retry } = useListings(lister);
 
    if (isPending) {
