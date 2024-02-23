@@ -82,3 +82,8 @@ export const fetchTags = {
    detailedListing: "detailed-listings",
    listerProfile: "lister-profile",
 };
+
+export const API_URL =
+   process.env.NODE_ENV === "development"
+      ? "http://127.0.0.1:8000/api"
+      : "https://drf-api-for-next-off-campus-production.up.railway.app/api";

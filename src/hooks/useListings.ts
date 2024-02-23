@@ -1,16 +1,32 @@
-import { ListingInterface } from "@/interfaces";
-import { useQuery } from "@tanstack/react-query";
+import { ListerInterface, ListingInterface } from "@/interfaces";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios, { AxiosResponse } from "axios";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
-export default function useListings() {
+export default function useListings(lister?: ListerInterface) {
    const searchParams = useSearchParams();
-   const queryString = searchParams.toString() ? "?" + searchParams.toString() : "";
+   const router = useRouter();
+   const queryClient = useQueryClient();
+
+   let queryString: string;
+   let queryKey: any[];
+   if (lister?.id) {
+      queryString = "?listerid=" + lister.id;
+      queryKey = ["listings", lister.id];
+   } else {
+      queryString = searchParams.toString() ? "?" + searchParams.toString() : "";
+      queryKey = ["listings", Object.fromEntries(searchParams.entries())];
+   }
+
+   function retry() {
+      queryClient.invalidateQueries({ queryKey: queryKey });
+      router.refresh();
+   }
 
    const { data, isPending, isError, error } = useQuery<
       AxiosResponse<{ listings: ListingInterface[]; page_count: number }>
    >({
-      queryKey: ["listings", Object.fromEntries(searchParams.entries())],
+      queryKey: queryKey,
       queryFn: async () => await axios.get("/api/listings" + queryString),
    });
 
@@ -22,5 +38,6 @@ export default function useListings() {
       isPending,
       isError,
       error,
+      retry,
    };
 }

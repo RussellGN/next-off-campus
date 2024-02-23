@@ -171,7 +171,11 @@ export default function Listing({ listing }: { listing: ListingInterface }) {
                         <Button component={Link} href={`/accomodation/${listing.slug}`} endIcon={<KeyboardArrowRight />}>
                            View
                         </Button>
-                        <ListerOptions listingTitle={listing.title} listingSlug={listing.slug} />
+                        <ListerOptions
+                           listingTitle={listing.title}
+                           listingSlug={listing.slug}
+                           listerId={listing.lister.id}
+                        />
                      </span>
 
                      <span>

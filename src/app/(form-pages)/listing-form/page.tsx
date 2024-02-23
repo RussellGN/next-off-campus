@@ -34,6 +34,7 @@ export default function Page() {
    const [images, setImages] = useState<File[]>([]); // syncs with image file input in order to display image previews
    const [warningVisible, setWarningVisible] = useState(false);
    const responseRef = useRef<{ message: string; listing: ListingInterface } | null>(null);
+
    async function showWarning() {
       await wait(1);
       setWarningVisible(true);
@@ -69,7 +70,7 @@ export default function Page() {
             setActiveTab(tabs.info2);
             break;
          default:
-            throw new Error("Error setting next tab");
+            setActiveTab(tabs.images);
       }
    }
 
@@ -82,7 +83,7 @@ export default function Page() {
             setActiveTab(tabs.info);
             break;
          default:
-            throw new Error("Error setting prev tab");
+            setActiveTab(tabs.images);
       }
    }
 
@@ -93,7 +94,7 @@ export default function Page() {
    if (activeTab === tabs.success) {
       return (
          <>
-            <div className="w-full mb-16">
+            <div className="w-full mb-24">
                <Button component={Link} href="/profile" variant="outlined" startIcon={<ArrowBack />}>
                   Profile
                </Button>
@@ -175,7 +176,7 @@ export default function Page() {
 
             <TextField
                size="small"
-               label="Title"
+               label="Title, 5-30 chars"
                name="title"
                placeholder="e.g Comfy apartment"
                inputProps={{ minLength: 5, maxLength: 30 }}
@@ -185,7 +186,7 @@ export default function Page() {
 
             <TextField
                size="small"
-               label="Rent - USD/month"
+               label="Rent - USD/month, min-10, max-10 000"
                name="rent"
                type="number"
                inputProps={{ min: 10, max: 10000 }}
@@ -195,7 +196,7 @@ export default function Page() {
 
             <TextField
                size="small"
-               label="Location - City & Suburb"
+               label="Location - City & Suburb, 5-40 chars"
                name="location"
                placeholder="e.g Harare, Belgravia"
                inputProps={{ minLength: 5, maxLength: 40 }}
@@ -205,7 +206,7 @@ export default function Page() {
 
             <TextField
                size="small"
-               label="Nearest Institution"
+               label="Nearest Institution, 2-40 chars"
                name="nearest_to"
                placeholder="e.g University of Zimbabwe"
                inputProps={{ minLength: 2, maxLength: 40 }}
@@ -235,10 +236,10 @@ export default function Page() {
 
             <TextField
                size="small"
-               label="Walking Distance - km"
+               label="Walking Distance - km, min-0, max-30"
                name="distance"
                type="number"
-               inputProps={{ min: 5, max: 30 }}
+               inputProps={{ min: 0, max: 30 }}
                required
                fullWidth
             />
@@ -251,7 +252,7 @@ export default function Page() {
 
             <TextField
                size="small"
-               label="Description"
+               label="Description, 5-500 chars"
                name="description"
                placeholder="Give details about the property, services offered, rooms available etc"
                inputProps={{ minLength: 5, maxLength: 500 }}

@@ -1,15 +1,13 @@
 import { fetchTags } from "@/constants";
-import { ListerInterface, ListingInterface } from "@/interfaces";
+import { ListerInterface } from "@/interfaces";
 import { cookies } from "next/headers";
-
-const baseURL = "http://127.0.0.1:8000";
-const apiURL = baseURL + "/api";
+import { API_URL } from "@/constants/index";
 
 export async function GET() {
    const token = cookies().get("token");
    if (!token) return Response.json({ lister: null });
 
-   const res = await fetch(`${apiURL}/auth/`, {
+   const res = await fetch(`${API_URL}/auth/`, {
       headers: { Authorization: `Token ${token.value}` },
       next: { tags: [fetchTags.listerProfile] },
    });
@@ -18,11 +16,8 @@ export async function GET() {
 
    const data = (await res.json()) as {
       lister: ListerInterface;
-      lister_listings: ListingInterface[];
+      lister_listings_length: number;
    };
-   data.lister_listings.forEach((listing) =>
-      listing.images.forEach((img) => (img.image = baseURL + img.image))
-   );
 
    return Response.json(data);
 }

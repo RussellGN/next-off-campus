@@ -4,8 +4,8 @@ import Listings from "@/components/accomodation/Listings";
 import SearchAndSort from "@/components/accomodation/SearchAndSort";
 import Sidebar from "@/components/accomodation/Sidebar";
 import useIsMobile from "@/hooks/useIsMobile";
-import { Box, CircularProgress, Grid } from "@mui/material";
-import { Suspense, useEffect, useState } from "react";
+import { Box, Grid } from "@mui/material";
+import { useEffect, useState } from "react";
 
 export default function Page() {
    const [filtersFormNumber, setFiltersFormNumber] = useState(1);

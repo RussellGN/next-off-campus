@@ -1,14 +1,13 @@
 "use client";
 
-import { Box, CircularProgress } from "@mui/material";
+import { CircularProgress, Button } from "@mui/material";
 import Pagination from "./Pagination";
 import Listing from "./Listing";
-import { ListingInterface } from "@/interfaces";
-import { getListingsAction } from "@/actions";
 import useListings from "@/hooks/useListings";
+import { ListerInterface } from "@/interfaces";
 
-export default function Listings() {
-   const { listings, isPending, error, isError, pageCount } = useListings();
+export default function Listings({ lister }: { lister: ListerInterface }) {
+   const { listings, isPending, error, isError, pageCount, retry } = useListings(lister);
 
    if (isPending) {
       return (
@@ -22,6 +21,10 @@ export default function Listings() {
       return (
          <p className="text-center mx-auto max-w-prose">
             There was an error <br /> <strong>{error?.message}</strong>
+            <br />
+            <Button sx={{ mt: 2 }} onClick={retry}>
+               Retry
+            </Button>
          </p>
       );
    }

@@ -73,7 +73,7 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
             setActiveTab(tabs.info2);
             break;
          default:
-            throw new Error("Error setting next tab");
+            setActiveTab(tabs.images);
       }
    }
 
@@ -86,7 +86,7 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
             setActiveTab(tabs.info);
             break;
          default:
-            throw new Error("Error setting prev tab");
+            setActiveTab(tabs.images);
       }
    }
 
@@ -97,7 +97,7 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
    if (activeTab === tabs.success) {
       return (
          <>
-            <div className="w-full mb-16">
+            <div className="w-full mb-24">
                <Button component={Link} href="/profile" variant="outlined" startIcon={<ArrowBack />}>
                   Profile
                </Button>
@@ -144,7 +144,7 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
                multiple
                accept="image/png,image/jpg,image/jpeg"
                onChange={onImageInputChange}
-               required
+               // required={listing.images.length + images.length < 3}
             />
 
             <Box
@@ -180,7 +180,7 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
 
             <TextField
                size="small"
-               label="Title"
+               label="Title, 5-30 chars"
                name="title"
                placeholder="e.g Comfy apartment"
                defaultValue={listing.title}
@@ -191,7 +191,7 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
 
             <TextField
                size="small"
-               label="Rent - USD/month"
+               label="Rent - USD/month, min-10, max-10 000"
                name="rent"
                type="number"
                defaultValue={listing.rent}
@@ -202,7 +202,7 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
 
             <TextField
                size="small"
-               label="Location - City & Suburb"
+               label="Location - City & Suburb, 5-40 chars"
                name="location"
                placeholder="e.g Harare, Belgravia"
                defaultValue={listing.location}
@@ -213,7 +213,7 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
 
             <TextField
                size="small"
-               label="Nearest Institution"
+               label="Nearest Institution, 2-40 chars"
                name="nearest_to"
                placeholder="e.g University of Zimbabwe"
                defaultValue={listing.nearest_to}
@@ -246,7 +246,7 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
 
             <TextField
                size="small"
-               label="Walking Distance - km"
+               label="Walking Distance - km, min-0, max-100"
                name="distance"
                type="number"
                defaultValue={listing.distance}
@@ -263,7 +263,7 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
 
             <TextField
                size="small"
-               label="Description"
+               label="Description, 5-500 chars"
                name="description"
                placeholder="Give details about the property, services offered, rooms available etc"
                defaultValue={listing.description}

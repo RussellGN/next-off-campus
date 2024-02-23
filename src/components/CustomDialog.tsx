@@ -1,5 +1,9 @@
+"use client";
+
+import { useState } from "react";
 import {
    Button,
+   CircularProgress,
    Dialog,
    DialogActions,
    DialogContent,
@@ -15,6 +19,7 @@ type CustomDialogProps = {
    closeDialog: () => void;
    proceedText?: string;
    cancelText?: string;
+   showSpinnerOnConfirm?: boolean;
 };
 
 export default function CustomDialog({
@@ -25,7 +30,10 @@ export default function CustomDialog({
    closeDialog,
    proceedText,
    cancelText,
+   showSpinnerOnConfirm,
 }: CustomDialogProps) {
+   const [showSpinner, setShowSpinner] = useState(false);
+
    return (
       <Dialog
          open={show}
@@ -36,17 +44,35 @@ export default function CustomDialog({
          sx={{ textAlign: "center" }}
       >
          <DialogTitle noWrap id="popup-dialog-title" sx={{ pt: 3 }}>
-            {title}
+            {showSpinner ? (title.toLowerCase() === "logout" ? "Logging out..." : "Deleting...") : title}
          </DialogTitle>
          <DialogContent>
-            <DialogContentText id="popup-dialog-description">{message}</DialogContentText>
+            {showSpinner ? (
+               <div className="flex justify-center items-center min-h-[8rem]">
+                  <CircularProgress />
+               </div>
+            ) : (
+               <>
+                  <DialogContentText id="popup-dialog-description">{message}</DialogContentText>
+
+                  <DialogActions sx={{ justifyContent: "center", pb: 3 }}>
+                     <Button onClick={closeDialog}>{cancelText ?? "Cancel"}</Button>
+                     <Button
+                        variant="outlined"
+                        color="secondary"
+                        onClick={() => {
+                           if (showSpinnerOnConfirm) {
+                              setShowSpinner(true);
+                           }
+                           confirm();
+                        }}
+                     >
+                        {proceedText ?? "Yes"}
+                     </Button>
+                  </DialogActions>
+               </>
+            )}
          </DialogContent>
-         <DialogActions sx={{ justifyContent: "center", pb: 3 }}>
-            <Button onClick={closeDialog}>{cancelText ?? "Cancel"}</Button>
-            <Button variant="outlined" color="secondary" onClick={confirm}>
-               {proceedText ?? "Yes"}
-            </Button>
-         </DialogActions>
       </Dialog>
    );
 }

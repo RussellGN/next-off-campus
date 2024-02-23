@@ -31,6 +31,7 @@ export default function LogoutBtn() {
             confirm={confirmLogout}
             show={showLogoutDialog}
             closeDialog={closeLogoutDialog}
+            showSpinnerOnConfirm
          />
 
          <IconButton onClick={openLogoutDialog} title="Logout" size="small">

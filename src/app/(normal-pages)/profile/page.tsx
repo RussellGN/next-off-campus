@@ -12,7 +12,7 @@ export default async function Page() {
    const token = cookies().get("token");
    if (!token) redirect("/auth/login");
 
-   const { lister, lister_listings } = await getListerAction();
+   const { lister, lister_listings_length } = await getListerAction();
 
    return (
       <div className="mt-7">
@@ -138,13 +138,12 @@ export default async function Page() {
                   </Paper>
 
                   <Box sx={{ p: 2, minHeight: "40vh" }}>
-                     {lister_listings.length ? (
+                     {lister_listings_length ? (
                         <>
                            <Typography variant="h6" sx={{ mb: 3, textAlign: "center" }}>
                               Your listings
                            </Typography>
-                           <Listings />
-                           {/* <Listings listerListings={lister_listings} /> */}
+                           <Listings lister={lister} />
                         </>
                      ) : (
                         <>

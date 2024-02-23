@@ -3,11 +3,8 @@
 import { ListerInterface, ListingInterface } from "@/interfaces";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
-import { fetchTags } from "@/constants";
+import { fetchTags, API_URL } from "@/constants";
 import { revalidateTag } from "next/cache";
-
-const BASE_URL = "http://127.0.0.1:8000";
-const API_URL = "http://127.0.0.1:8000/api";
 
 export async function loginAction(formData: FormData) {
    const res = await fetch(`${API_URL}/auth/login/`, {
@@ -28,24 +25,24 @@ export async function loginAction(formData: FormData) {
    redirect("/profile");
 }
 
-export async function signupActionOld(formData: FormData) {
-   const res = await fetch(`${API_URL}/auth/signup/`, {
-      method: "POST",
-      body: formData,
-   });
+// export async function signupActionOld(formData: FormData) {
+//    const res = await fetch(`${API_URL}/auth/signup/`, {
+//       method: "POST",
+//       body: formData,
+//    });
 
-   if (!res.ok) {
-      const errorData = await res.json();
-      const errorDetails = errorData ? JSON.stringify(errorData) : "No response from server";
-      console.log(errorDetails);
-      throw new Error(`signup failed: ${res.statusText} \n Details: ${errorDetails}`);
-   }
+//    if (!res.ok) {
+//       const errorData = await res.json();
+//       const errorDetails = errorData ? JSON.stringify(errorData) : "No response from server";
+//       console.log(errorDetails);
+//       throw new Error(`signup failed: ${res.statusText} \n Details: ${errorDetails}`);
+//    }
 
-   const data = (await res.json()) as { lister: ListerInterface; message: string; token: string };
-   cookies().set("token", data.token);
-   console.log(data);
-   redirect("/profile");
-}
+//    const data = (await res.json()) as { lister: ListerInterface; message: string; token: string };
+//    cookies().set("token", data.token);
+//    console.log(data);
+//    redirect("/profile");
+// }
 
 export async function signupAction(formData: FormData) {
    const res = await fetch(`${API_URL}/auth/signup/`, {
@@ -83,9 +80,8 @@ export async function getListerAction() {
 
    const data = (await res.json()) as {
       lister: ListerInterface;
-      lister_listings: ListingInterface[];
+      lister_listings_length: number;
    };
-   data.lister_listings.forEach((listing) => listing.images.forEach((img) => (img.image = BASE_URL + img.image)));
 
    return data;
 }
@@ -108,6 +104,7 @@ export async function updateListerAction(formData: FormData) {
 
    const data = (await res.json()) as { lister: ListerInterface; message: string };
    console.log(data);
+   revalidateTag(fetchTags.listerProfile);
    redirect("/profile");
 }
 
@@ -121,8 +118,7 @@ export async function getListingsAction() {
       throw new Error(`failed to get listings: ${res.statusText} \n Details: ${errorDetails}`);
    }
 
-   const data = (await res.json()) as { listings: ListingInterface[] };
-   data.listings.forEach((listing) => listing.images.forEach((img) => (img.image = BASE_URL + img.image)));
+   const data = (await res.json()) as { listings: ListingInterface[]; page_count: number };
 
    return data;
 }
@@ -138,9 +134,8 @@ export async function getListingAction(slug: string) {
    }
 
    const data = (await res.json()) as { listing: ListingInterface; related_listings: ListingInterface[] };
-   data.listing.images.forEach((img) => (img.image = BASE_URL + img.image));
 
-   return data.listing;
+   return data;
 }
 
 export async function createListingAction(formData: FormData) {
@@ -165,7 +160,6 @@ export async function createListingAction(formData: FormData) {
    console.log(data);
    revalidateTag(fetchTags.listings);
    return data;
-   // redirect("/profile");
 }
 
 export async function updateListingAction(slug: string, formData: FormData) {
@@ -186,7 +180,7 @@ export async function updateListingAction(slug: string, formData: FormData) {
 
    const data = (await res.json()) as { listing: ListingInterface; message: string };
    console.log(data);
-   revalidateTag(fetchTags.detailedListing);
+   revalidateTag(slug);
    revalidateTag(fetchTags.listerProfile);
    revalidateTag(fetchTags.listings);
    return data;
@@ -209,7 +203,7 @@ export async function deleteListingAction(slug: string) {
 
    const data = (await res.json()) as { message: string };
    console.log(data);
-   revalidateTag(fetchTags.detailedListing);
+   revalidateTag(slug);
    revalidateTag(fetchTags.listerProfile);
    revalidateTag(fetchTags.listings);
    return data;

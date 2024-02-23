@@ -6,6 +6,7 @@ import "./globals.css";
 export const metadata: Metadata = {
    title: "Off-Campus",
    description: "Find/advertise acccomodation for college students in Zimbabwe",
+   keywords: "accomodation, off-campus, zimbabwe, college, university, student, housing",
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
