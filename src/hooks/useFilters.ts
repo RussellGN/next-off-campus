@@ -1,11 +1,12 @@
 import { radioCheckFilters } from "@/constants";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export default function useFilters() {
    const params = useSearchParams();
    const pathname = usePathname();
    const router = useRouter();
+   const isFirstRun = useRef(true);
 
    function handleSubmission(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault();
@@ -42,9 +43,13 @@ export default function useFilters() {
 
    // on inital page load, clear all filters from the url
    useEffect(() => {
-      const searchParams = new URLSearchParams(params);
-      radioCheckFilters.forEach(({ name }) => searchParams.delete(name));
-      router.replace(pathname + searchParams.toString() ? `?${searchParams.toString()}` : "");
+      if (isFirstRun.current) {
+         const searchParams = new URLSearchParams(params);
+         radioCheckFilters.forEach(({ name }) => searchParams.delete(name));
+         router.replace(pathname + searchParams.toString() ? `?${searchParams.toString()}` : "");
+
+         isFirstRun.current = false;
+      }
    }, []);
 
    return {
