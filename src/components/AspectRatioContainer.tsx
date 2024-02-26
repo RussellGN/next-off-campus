@@ -6,15 +6,11 @@ import React, { useState, useRef, useEffect, ReactNode } from "react";
 
 type propTypes = {
    children: ReactNode;
-   ratio?: "16/9" | string;
+   ratio?: string;
    containerStyles?: SxProps;
 };
 
-export default function AspectRatioContainer({
-   children,
-   containerStyles,
-   ratio = "16/9",
-}: propTypes) {
+export default function AspectRatioContainer({ children, containerStyles, ratio = "16/9" }: propTypes) {
    const [height, setHeight] = useState("fit-content");
    const itemRef = useRef<HTMLDivElement>(null);
 

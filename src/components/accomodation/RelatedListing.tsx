@@ -1,5 +1,4 @@
 import { Box, Grid, SxProps, Typography } from "@mui/material";
-import { AspectContainedImage } from "@/components/AspectRatioContainer";
 import Link from "next/link";
 import { ListingInterface } from "@/interfaces";
 import AspectContainedNextImage from "../AspectContainedNextImage";

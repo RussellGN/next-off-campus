@@ -2,7 +2,6 @@
 
 import { Drawer, Box, IconButton } from "@mui/material";
 import { Menu, Close } from "@mui/icons-material";
-import Link from "next/link";
 import { navLinks } from "@/constants";
 import { useState } from "react";
 import NavLink from "../NavLink";

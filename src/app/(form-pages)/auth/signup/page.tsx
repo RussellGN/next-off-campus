@@ -45,7 +45,7 @@ export default function Signup() {
    if (loading) return <CircularProgress />;
 
    return (
-      <form onSubmit={handleSubmit} className="w-full">
+      <form onSubmit={(e) => void handleSubmit(e)} className="w-full">
          <Button type="button" onClick={goBack} color="secondary" variant="outlined" startIcon={<KeyboardArrowLeft />}>
             Back
          </Button>

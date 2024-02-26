@@ -2,6 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import Link from "next/link";
 import { imagesDescriptive } from "../../assets/static-images/images";
 import Image from "next/image";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 export default function features() {
    return (
@@ -12,7 +13,7 @@ export default function features() {
       >
          <Image
             alt="graphics"
-            src={imagesDescriptive.flags}
+            src={imagesDescriptive.flags as StaticImport}
             style={{
                maxWidth: "15rem",
                position: "relative",

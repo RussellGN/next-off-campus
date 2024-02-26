@@ -1,15 +1,5 @@
 import { CheckboxOrRadioFilterInterface } from "@/interfaces";
-import {
-   Box,
-   Checkbox,
-   FormControl,
-   FormControlLabel,
-   FormGroup,
-   Radio,
-   RadioGroup,
-   SxProps,
-   Typography,
-} from "@mui/material";
+import { Box, Checkbox, FormControlLabel, FormGroup, Radio, RadioGroup, SxProps, Typography } from "@mui/material";
 
 export default function RadioCheckFilter({ filter }: { filter: CheckboxOrRadioFilterInterface }) {
    const filterStyles: SxProps = {

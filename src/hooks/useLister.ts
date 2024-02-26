@@ -1,4 +1,4 @@
-import { ListerInterface, ListingInterface } from "@/interfaces";
+import { ListerInterface } from "@/interfaces";
 import { useQuery } from "@tanstack/react-query";
 import axios, { AxiosResponse } from "axios";
 

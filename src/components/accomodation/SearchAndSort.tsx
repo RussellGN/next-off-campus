@@ -47,11 +47,11 @@ export default function SearchAndSort({
                //       handleQuery(q);
                //    }
                // }}
-               onKeyUp={(e: any) => {
+               onKeyUp={(e) => {
                   if (e.which === 13) {
-                     const q = e.target.value;
-                     e.target.value = "";
-                     e.target.blur();
+                     const q = (e.target as HTMLInputElement).value;
+                     (e.target as HTMLInputElement).value = "";
+                     (e.target as HTMLInputElement).blur();
                      handleQuery(q);
                   }
                }}

@@ -1,5 +1,4 @@
 import { memo } from "react";
-import { AspectContainedImage } from "../AspectRatioContainer";
 import AspectContainedNextImage from "../AspectContainedNextImage";
 
 export default memo(

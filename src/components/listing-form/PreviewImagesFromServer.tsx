@@ -1,9 +1,8 @@
 "use client";
 
-import React, { memo, useState } from "react";
-import { AspectContainedImage } from "../AspectRatioContainer";
+import { memo, useState } from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton } from "@mui/material";
-import { Delete, DeleteOutlined } from "@mui/icons-material";
+import { Delete } from "@mui/icons-material";
 import AspectContainedNextImage from "../AspectContainedNextImage";
 
 export default memo(
@@ -39,7 +38,7 @@ export default memo(
             />
 
             {images.map((img) => {
-               let removedIds = deletedImageIds.split(",");
+               const removedIds = deletedImageIds.split(",");
                let shouldReturn = true;
                removedIds.forEach((id) => {
                   if (String(img.id) === id) shouldReturn = false;
@@ -82,7 +81,6 @@ export default memo(
 
 function RemoveDialog({
    openRemoveDialog,
-   hideRemoveDialog,
    confirmRemove,
    cancelRemove,
 }: {

@@ -119,7 +119,7 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
    }
 
    return (
-      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 w-full min-h-[80vh]">
+      <form onSubmit={(e) => void handleSubmit(e)} className="flex flex-col items-center gap-4 w-full min-h-[80vh]">
          <div className="w-full">
             <Button component={Link} href="/profile" variant="outlined" startIcon={<ArrowBack />}>
                Profile
@@ -313,7 +313,7 @@ export default function ListingForm({ listing }: { listing: ListingInterface }) 
                   </Button>
                )}
                {isLastTab && (
-                  <Button onClick={showWarning} type="submit">
+                  <Button onClick={() => void showWarning()} type="submit">
                      finish
                   </Button>
                )}

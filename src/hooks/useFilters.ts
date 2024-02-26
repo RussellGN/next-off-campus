@@ -11,14 +11,15 @@ export default function useFilters() {
    function handleSubmission(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault();
       const formData = new FormData(e.currentTarget);
-      const formDataObject: any = {}; // type of 'any' just to shut the compiler up
+      // const formDataObject: any = {}; // type of 'any' just to shut the compiler up
+      const formDataObject: Record<string, string> = {}; // type of 'any' just to shut the compiler up
 
       for (const entry of formData.entries()) {
          const [name, value] = entry;
 
          if (formDataObject[name]) {
-            formDataObject[name] += "," + value;
-         } else formDataObject[name] = value;
+            formDataObject[name] += "," + (value as Exclude<FormDataEntryValue, File>);
+         } else formDataObject[name] = value as Exclude<FormDataEntryValue, File>;
       }
 
       const searchParams = new URLSearchParams(params);
@@ -26,11 +27,12 @@ export default function useFilters() {
 
       Object.keys(formDataObject).forEach((name) => {
          const value = formDataObject[name];
-         if (value) searchParams.set(name, value);
+         if (value) searchParams.set(name, value.toString());
          else searchParams.delete(name);
 
          oldFilters = oldFilters.filter((filter) => filter !== name); // remove this filter since its been encountered
       });
+
       oldFilters.forEach((filter) => searchParams.delete(filter)); // delete old filters not encountered
       router.replace(pathname + "?" + searchParams.toString());
    }

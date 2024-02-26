@@ -16,10 +16,10 @@ export default function LogoutBtn() {
    const openLogoutDialog = () => setShowLogoutDialog(true);
    const closeLogoutDialog = () => setShowLogoutDialog(false);
 
-   async function confirmLogout() {
+   function confirmLogout() {
       console.log("logging out");
       deleteCookie("token");
-      queryClient.invalidateQueries({ queryKey: ["lister"] });
+      void queryClient.invalidateQueries({ queryKey: ["lister"] });
       router.push("/");
    }
 

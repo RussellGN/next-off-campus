@@ -6,7 +6,7 @@ import { navLinks } from "@/constants";
 import NavLink from "../NavLink";
 import ListerAvatarOrSignup from "./ListerAvatarOrSignup";
 
-export default async function Navbar() {
+export default function Navbar() {
    return (
       <AnimatedHeader>
          <div className="flex items-center justify-between">
@@ -15,15 +15,8 @@ export default async function Navbar() {
             <Box component="nav">
                <ul className="list-none flex items-center gap-1 sm:gap-4">
                   {navLinks.map((navLink) => (
-                     <Box
-                        component="li"
-                        key={navLink.path}
-                        sx={{ display: { xs: "none", md: "inline-block" } }}
-                     >
-                        <NavLink
-                           href={navLink.path}
-                           includes={navLink.path === "/accomodation" ? navLink.path : undefined}
-                        >
+                     <Box component="li" key={navLink.path} sx={{ display: { xs: "none", md: "inline-block" } }}>
+                        <NavLink href={navLink.path} includes={navLink.path === "/accomodation" ? navLink.path : undefined}>
                            {navLink.label}
                         </NavLink>
                      </Box>

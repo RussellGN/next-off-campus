@@ -5,11 +5,8 @@ import { IconButton } from "@mui/material";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import CustomDialog from "../CustomDialog";
-import { deleteListingAction } from "@/actions";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { fetchTags } from "@/constants";
-import useLister from "@/hooks/useLister";
 import axios from "axios";
 
 export default function ListerOptions({
@@ -31,7 +28,7 @@ export default function ListerOptions({
       // mutationFn: async () => deleteListingAction(listingSlug),
       mutationFn: async () => await axios.delete<{ message: string }>("/api/listings/" + listingSlug),
       onSuccess: (res) => {
-         queryClient.invalidateQueries({ queryKey: ["listings", listerId] });
+         void queryClient.invalidateQueries({ queryKey: ["listings", listerId] });
          router.refresh();
          console.log(res.data.message);
          closeDeleteDialog();
@@ -47,7 +44,7 @@ export default function ListerOptions({
             <CustomDialog
                title="Delete confirmation"
                message={`Are you sure you want to delete the listing titled "${listingTitle}"?`}
-               confirm={async () => await deleteListingMutation()}
+               confirm={() => void (async () => await deleteListingMutation())()}
                show={showDeleteDialog}
                closeDialog={closeDeleteDialog}
                showSpinnerOnConfirm

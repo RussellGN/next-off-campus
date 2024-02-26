@@ -1,6 +1,5 @@
-import { Home, HomeOutlined, HotelRounded } from "@mui/icons-material";
+import { Home } from "@mui/icons-material";
 import { Typography } from "@mui/material";
-import React from "react";
 import Link from "next/link";
 
 export default function Logo() {

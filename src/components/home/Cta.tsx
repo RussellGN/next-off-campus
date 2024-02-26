@@ -2,6 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import Image from "next/image";
 import { imagesDescriptive } from "../../assets/static-images/images";
 import Link from "next/link";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 export default function cta() {
    return (
@@ -21,7 +22,7 @@ export default function cta() {
       >
          <Image
             alt=""
-            src={imagesDescriptive.apartments}
+            src={imagesDescriptive.apartments as StaticImport}
             style={{
                width: "35rem",
                height: "auto",

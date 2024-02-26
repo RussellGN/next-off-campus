@@ -1,4 +1,3 @@
-import axios from "axios";
 import { redirect } from "next/navigation";
 
 export function capitalize(text: string): string {
@@ -7,8 +6,8 @@ export function capitalize(text: string): string {
    words = words.filter((word) => word !== " ");
 
    words.forEach((word) => {
-      let newWord = word.trim();
-      let firstLetter = newWord[0].toUpperCase();
+      const newWord = word.trim();
+      const firstLetter = newWord[0].toUpperCase();
       finalText += firstLetter + newWord.substring(1) + " ";
    });
 
@@ -17,8 +16,8 @@ export function capitalize(text: string): string {
 
 export function generateAvatarLetters(string: string): string {
    string = string.trim();
-   let words = string.split(" ");
-   let letters = words.map((word) => word[0]);
+   const words = string.split(" ");
+   const letters = words.map((word) => word[0]);
 
    const finalLetters = letters.join("").toUpperCase();
 
@@ -34,9 +33,9 @@ export async function wait(seconds: number, log?: boolean) {
 
 export function setCookie(cname: string, cvalue: string, exdays: number) {
    try {
-      let d = new Date();
+      const d = new Date();
       d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-      let expires = "expires=" + d.toUTCString();
+      const expires = "expires=" + d.toUTCString();
       document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
    } catch (error) {
       console.log("error getting cookie:", error);
@@ -53,9 +52,9 @@ export function deleteCookie(cname: string) {
 
 export function getCookie(cname: string) {
    try {
-      let name = cname + "=";
-      let decodedCookie = decodeURIComponent(document.cookie);
-      let ca = decodedCookie.split(";");
+      const name = cname + "=";
+      const decodedCookie = decodeURIComponent(document.cookie);
+      const ca = decodedCookie.split(";");
       for (let i = 0; i < ca.length; i++) {
          let c = ca[i];
          while (c.charAt(0) == " ") {

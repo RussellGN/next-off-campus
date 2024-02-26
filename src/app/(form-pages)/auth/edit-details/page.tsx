@@ -9,7 +9,7 @@ export default async function Signup() {
    const { lister } = await getListerAction();
 
    return (
-      <form action={updateListerAction} className="w-full">
+      <form action={(formData) => void updateListerAction(formData)} className="w-full">
          <Button component={Link} href="/profile" color="secondary" variant="outlined" startIcon={<Person />}>
             Profile
          </Button>

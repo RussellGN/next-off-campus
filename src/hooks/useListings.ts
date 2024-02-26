@@ -9,17 +9,18 @@ export default function useListings(lister?: ListerInterface) {
    const queryClient = useQueryClient();
 
    let queryString: string;
-   let queryKey: any[];
+   let queryKey: (string | number)[];
    if (lister?.id) {
       queryString = "?listerid=" + lister.id;
       queryKey = ["listings", lister.id];
    } else {
       queryString = searchParams.toString() ? "?" + searchParams.toString() : "";
-      queryKey = ["listings", Object.fromEntries(searchParams.entries())];
+      // queryKey = ["listings", Object.fromEntries(searchParams.entries())];
+      queryKey = ["listings", searchParams.toString()];
    }
 
    function retry() {
-      queryClient.invalidateQueries({ queryKey: queryKey });
+      void queryClient.invalidateQueries({ queryKey: queryKey });
       router.refresh();
    }
 

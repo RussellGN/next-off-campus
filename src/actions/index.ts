@@ -6,6 +6,13 @@ import { cookies } from "next/headers";
 import { fetchTags, API_URL } from "@/constants";
 import { revalidateTag } from "next/cache";
 
+async function getErrorDetails(res: Response) {
+   const errorDetails = JSON.stringify(await res.json());
+   console.log(errorDetails);
+
+   return errorDetails;
+}
+
 export async function loginAction(formData: FormData) {
    const res = await fetch(`${API_URL}/auth/login/`, {
       method: "POST",
@@ -13,10 +20,7 @@ export async function loginAction(formData: FormData) {
    });
 
    if (!res.ok) {
-      const errorData = await res.json();
-      const errorDetails = errorData ? JSON.stringify(errorData) : "No response from server";
-      console.log(errorDetails);
-      throw new Error(`login failed: ${res.statusText} \n Details: ${errorDetails}`);
+      throw new Error(`login failed: ${res.statusText} \n Details: ${await getErrorDetails(res)}`);
    }
    const data = (await res.json()) as { lister: ListerInterface; message: string; token: string };
 
@@ -35,7 +39,7 @@ export async function loginAction(formData: FormData) {
 //       const errorData = await res.json();
 //       const errorDetails = errorData ? JSON.stringify(errorData) : "No response from server";
 //       console.log(errorDetails);
-//       throw new Error(`signup failed: ${res.statusText} \n Details: ${errorDetails}`);
+//       throw new Error(`signup failed: ${res.statusText} \n Details: ${await getErrorDetails(res)}`);
 //    }
 
 //    const data = (await res.json()) as { lister: ListerInterface; message: string; token: string };
@@ -51,10 +55,7 @@ export async function signupAction(formData: FormData) {
    });
 
    if (!res.ok) {
-      const errorData = await res.json();
-      const errorDetails = errorData ? JSON.stringify(errorData) : "No response from server";
-      console.log(errorDetails);
-      throw new Error(`signup failed: ${res.statusText} \n Details: ${errorDetails}`);
+      throw new Error(`signup failed: ${res.statusText} \n Details: ${await getErrorDetails(res)}`);
    }
 
    const data = (await res.json()) as { lister: ListerInterface; message: string; token: string };
@@ -72,10 +73,7 @@ export async function getListerAction() {
    });
 
    if (!res.ok) {
-      const errorData = await res.json();
-      const errorDetails = errorData ? JSON.stringify(errorData) : "No response from server";
-      console.log(errorDetails);
-      throw new Error(`failed to fetch profile details: ${res.statusText} \n Details: ${errorDetails}`);
+      throw new Error(`failed to fetch profile details: ${res.statusText} \n Details: ${await getErrorDetails(res)}`);
    }
 
    const data = (await res.json()) as {
@@ -96,10 +94,7 @@ export async function updateListerAction(formData: FormData) {
    });
 
    if (!res.ok) {
-      const errorData = await res.json();
-      const errorDetails = errorData ? JSON.stringify(errorData) : "No response from server";
-      console.log(errorDetails);
-      throw new Error(`failed to update details: ${res.statusText} \n Details: ${errorDetails}`);
+      throw new Error(`failed to update details: ${res.statusText} \n Details: ${await getErrorDetails(res)}`);
    }
 
    const data = (await res.json()) as { lister: ListerInterface; message: string };
@@ -112,10 +107,7 @@ export async function getListingsAction() {
    const res = await fetch(`${API_URL}/listings/`, { next: { tags: ["listings"] } });
 
    if (!res.ok) {
-      const errorData = await res.json();
-      const errorDetails = errorData ? JSON.stringify(errorData) : "No response from server";
-      console.log(errorDetails);
-      throw new Error(`failed to get listings: ${res.statusText} \n Details: ${errorDetails}`);
+      throw new Error(`failed to get listings: ${res.statusText} \n Details: ${await getErrorDetails(res)}`);
    }
 
    const data = (await res.json()) as { listings: ListingInterface[]; page_count: number };
@@ -127,10 +119,7 @@ export async function getListingAction(slug: string) {
    const res = await fetch(`${API_URL}/listings/${slug}`, { next: { tags: [slug] } });
 
    if (!res.ok) {
-      const errorData = await res.json();
-      const errorDetails = errorData ? JSON.stringify(errorData) : "No response from server";
-      console.log(errorDetails);
-      throw new Error(`failed to get listing: ${res.statusText} \n Details: ${errorDetails}`);
+      throw new Error(`failed to get listing: ${res.statusText} \n Details: ${await getErrorDetails(res)}`);
    }
 
    const data = (await res.json()) as { listing: ListingInterface; related_listings: ListingInterface[] };
@@ -150,10 +139,7 @@ export async function createListingAction(formData: FormData) {
    console.log(res);
 
    if (!res.ok) {
-      const errorData = await res.json();
-      const errorDetails = errorData ? JSON.stringify(errorData) : "No response from server";
-      console.log(errorDetails);
-      throw new Error(`failed to create new listing: ${res.statusText} \n Details: ${errorDetails}`);
+      throw new Error(`failed to create new listing: ${res.statusText} \n Details: ${await getErrorDetails(res)}`);
    }
 
    const data = (await res.json()) as { listing: ListingInterface; message: string };
@@ -172,10 +158,7 @@ export async function updateListingAction(slug: string, formData: FormData) {
    });
 
    if (!res.ok) {
-      const errorData = await res.json();
-      const errorDetails = errorData ? JSON.stringify(errorData) : "No response from server";
-      console.log(errorDetails);
-      throw new Error(`failed to update listing: ${res.statusText} \n Details: ${errorDetails}`);
+      throw new Error(`failed to update listing: ${res.statusText} \n Details: ${await getErrorDetails(res)}`);
    }
 
    const data = (await res.json()) as { listing: ListingInterface; message: string };
@@ -195,10 +178,7 @@ export async function deleteListingAction(slug: string) {
    });
 
    if (!res.ok) {
-      const errorData = await res.json();
-      const errorDetails = errorData ? JSON.stringify(errorData) : "No response from server";
-      console.log(errorDetails);
-      throw new Error(`failed to delete listing: ${res.statusText} \n Details: ${errorDetails}`);
+      throw new Error(`failed to delete listing: ${res.statusText} \n Details: ${await getErrorDetails(res)}`);
    }
 
    const data = (await res.json()) as { message: string };
