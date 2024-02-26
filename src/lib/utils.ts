@@ -1,17 +1,18 @@
 import { redirect } from "next/navigation";
 
 export function capitalize(text: string): string {
-   let finalText = "";
-   let words = text.split(" ");
-   words = words.filter((word) => word !== " ");
+   // let finalText = "";
+   // let words = text.split(" ");
+   // words = words.filter((word) => word !== " ");
 
-   words.forEach((word) => {
-      const newWord = word.trim();
-      const firstLetter = newWord[0].toUpperCase();
-      finalText += firstLetter + newWord.substring(1) + " ";
-   });
+   // words.forEach((word) => {
+   //    const newWord = word.trim();
+   //    const firstLetter = newWord[0]?.toUpperCase();
+   //    finalText += firstLetter + newWord.substring(1) + " ";
+   // });
 
-   return finalText.trim();
+   // return finalText.trim();
+   return text.toUpperCase();
 }
 
 export function generateAvatarLetters(string: string): string {
