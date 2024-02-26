@@ -29,7 +29,7 @@ export default function Page() {
    }
 
    return (
-      <Box sx={{ mt: { xs: 2, md: 5 } }}>
+      <Box sx={{ mt: { xs: 2, md: 5 }, minHeight: "70vh" }}>
          <Grid container gap={1}>
             <Sidebar
                showSidebar={showSidebar}

@@ -15,7 +15,7 @@ export default async function Page() {
    const { lister, lister_listings_length } = await getListerAction();
 
    return (
-      <div className="mt-7">
+      <div className="mt-7 min-h-[70vh]">
          <Grid container gap={3}>
             <Grid item xs={12} md={3}>
                <Paper
